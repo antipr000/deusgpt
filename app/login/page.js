@@ -12,7 +12,7 @@ const Login = () => {
         </div>
       </div>
 
-      <div className="p-[30px]">
+      <div className="p-[30px] flex justify-center items-center">
         <div className="mx-auto flex w-full flex-col items-center justify-center space-y-6">
           <LoginComponent />
         </div>
