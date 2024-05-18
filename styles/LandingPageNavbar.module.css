@@ -1,0 +1,29 @@
+.container {
+    grid-column: span 5/span 10;
+    grid-column-start: 3;
+    margin-left: -100px;
+}
+
+.nav_link {
+    font-size: 1.1rem;
+    text-decoration: none;
+}
+
+.register_btn_container {
+    right: 50px;
+    position: absolute;
+}
+
+.register_btn {
+    border: 1px solid;
+    left: 1px;
+    position: relative;
+    padding: 10px;
+}
+
+.logo {
+    width: 185px;
+    top: -20px;
+    position: relative;
+    left: 100px;
+}

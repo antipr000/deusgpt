@@ -1,3 +1,4 @@
+import Head from "next/head";
 import "../styles/global.css";
 
 export const metadata = {
@@ -8,7 +9,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className="bg-[#ccddec] h-[100vh]">
+      <Head>
+      </Head>
+      <body className="bg-[#ccddec] w-[100vw] h-[100vh]">
         {/* Layout UI */}
         {children}
       </body>
