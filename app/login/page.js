@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import LoginComponent from "../../components/Login";
 
 const Login = () => {
   return (
@@ -13,7 +14,7 @@ const Login = () => {
 
       <div className="p-[30px]">
         <div className="mx-auto flex w-full flex-col items-center justify-center space-y-6">
-          Login
+          <LoginComponent />
         </div>
       </div>
     </div>
