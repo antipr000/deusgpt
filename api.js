@@ -19,12 +19,10 @@ async function createUser(idToken) {
   return data;
 }
 
-async function register(email, password, firstName, lastName) {
+async function register(email, password) {
   const { data } = await instance.post("/register", {
     email,
     password,
-    firstName,
-    lastName,
   });
   return data;
 }

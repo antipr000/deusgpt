@@ -4,8 +4,6 @@ import { registerWithEmail } from "../../firebase/utils";
 
 const RegistrationForm = () => {
   const [registrationData, setRegistrationData] = useState({
-    firstName: "",
-    lastName: "",
     email: "",
     password: "",
     retypedPassword: "",
@@ -27,18 +25,17 @@ const RegistrationForm = () => {
 
   const submit = async (event) => {
     event.preventDefault();
-    const { email, password, firstName, lastName, retypedPassword } =
-      registrationData;
+    const { email, password, retypedPassword } = registrationData;
     // Do validations
     if (!termsAccepted) {
       window.alert("You must accept terms of service!");
     } else if (retypedPassword !== password) {
       window.alert("The passwords do not match!");
-    } else if (!firstName || !lastName || !email || !password) {
+    } else if (!email || !password) {
       window.alert("All fields are mandatory!");
     } else {
       setLoading(true);
-      registerWithEmail(email, password, firstName, lastName);
+      registerWithEmail(email, password);
       setLoading(false);
     }
   };
@@ -52,28 +49,6 @@ const RegistrationForm = () => {
         <div className="grid gap-6">
           <form>
             <div class="grid gap-2">
-              <div class="grid gap-1">
-                <input
-                  value={registrationData.firstName}
-                  onChange={onChange}
-                  name="firstName"
-                  className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus:border-ring focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 focus-visible:ring-0 focus-visible:border-ring"
-                  id="name"
-                  placeholder="First Name"
-                  required
-                />
-              </div>
-              <div class="grid gap-1">
-                <input
-                  value={registrationData.lastName}
-                  onChange={onChange}
-                  name="lastName"
-                  className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus:border-ring focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 focus-visible:ring-0 focus-visible:border-ring"
-                  id="lastname"
-                  placeholder="Last Name"
-                  required
-                />
-              </div>
               <div class="grid gap-1">
                 <input
                   value={registrationData.email}

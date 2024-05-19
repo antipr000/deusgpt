@@ -31,8 +31,8 @@ export async function loginWithGithub() {
   store.set(userAtom, () => user);
 }
 
-export async function registerWithEmail(email, password, firstName, lastName) {
-  const user = await register(email, password, firstName, lastName);
+export async function registerWithEmail(email, password) {
+  const user = await register(email, password);
   const auth = getAuth();
   const result = await signInWithEmailAndPassword(auth, email, password);
   const idToken = await result.user.getIdToken(true);

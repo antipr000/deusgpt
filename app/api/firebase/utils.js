@@ -31,20 +31,16 @@ async function getUserFederatedData(idToken) {
   };
 }
 
-async function createUserRecord({ email, firstName, lastName, password }) {
-  console.log("Creating user record", email, firstName, lastName, password);
+async function createUserRecord({ email, password }) {
   const { uid } = await firebase_admin.auth().createUser({
     email: email,
     emailVerified: true,
     password: password,
-    displayName: `${firstName} ${lastName}`,
   });
 
   return {
     firebaseId: uid,
     email,
-    firstName,
-    lastName,
     plan: Plan.STANDARD,
     createdAt: new Date(),
   };
