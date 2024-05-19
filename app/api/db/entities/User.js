@@ -2,9 +2,11 @@ import mongoose from "mongoose";
 import { Plan } from "../../domain/Plan";
 
 const userSchema = new mongoose.Schema({
-  id: {
+  firebaseId: {
     type: String,
     required: true,
+    unique: true,
+    trim: true,
   },
   firstName: {
     type: String,
