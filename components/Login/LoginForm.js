@@ -34,31 +34,31 @@ const LoginForm = ({ setTab }) => {
   };
 
   return (
-    <div id="login" class={`tabcontent ${styles.login_form_container}`}>
-      <div class="flex flex-col space-y-2 text-center">
-        <div class="inline-block transition duration-200 ease-in-out text-content-emphasis font-medium">
+    <div id="login" className={`tabcontent ${styles.login_form_container}`}>
+      <div className="flex flex-col space-y-2 text-center">
+        <div className="inline-block transition duration-200 ease-in-out text-content-emphasis font-medium">
           Log in into your account
         </div>
-        <div class="grid gap-6">
+        <div className="grid gap-6">
           <form>
-            <div class="grid gap-2">
-              <div class="grid gap-1">
+            <div className="grid gap-2">
+              <div className="grid gap-1">
                 <input
                   type="email"
                   name="email"
                   onChange={onChange}
-                  class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus:border-ring focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 focus-visible:ring-0 focus-visible:border-ring"
+                  className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus:border-ring focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 focus-visible:ring-0 focus-visible:border-ring"
                   id="email"
                   placeholder="name@example.com"
                   value={loginData.email}
                 />
               </div>
-              <div class="grid gap-1">
+              <div className="grid gap-1">
                 <input
                   type="password"
                   name="password"
                   onChange={onChange}
-                  class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus:border-ring focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 focus-visible:ring-0 focus-visible:border-ring"
+                  className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus:border-ring focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 focus-visible:ring-0 focus-visible:border-ring"
                   id="password"
                   placeholder="password*"
                   value={loginData.value}
@@ -66,32 +66,31 @@ const LoginForm = ({ setTab }) => {
               </div>
               <button
                 onClick={handleLogin}
-                class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 border border-input dark:border-gray-500 bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2"
+                className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 border border-input dark:border-gray-500 bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2"
               >
                 Login
               </button>
             </div>
           </form>
           <button
-            class="tablink"
             onClick={() => setTab("forgot_password")}
-            className={styles.forgot_password_btn}
+            className={`tablink ${styles.forgot_password_btn}`}
           >
             I forgot my password ?
           </button>
-          <div class="relative">
-            <div class="absolute inset-0 flex items-center">
-              <span class="w-full border-t"></span>
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <span className="w-full border-t"></span>
             </div>
-            <div class="relative flex justify-center text-xs uppercase">
-              <span class="bg-background px-2 text-muted-foreground">
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-background px-2 text-muted-foreground">
                 OR CONTINUE
               </span>
             </div>
           </div>
           <button
             onClick={loginWithGithub}
-            class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 border border-input dark:border-gray-500 bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2"
+            className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 border border-input dark:border-gray-500 bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2"
             type="button"
           >
             <img
@@ -101,15 +100,15 @@ const LoginForm = ({ setTab }) => {
               height="24"
               decoding="async"
               data-nimg="1"
-              class={`mr-2 ${styles.federated_login_img}`}
-              srcset="imgs/github-mark.png 2x"
+              className={`mr-2 ${styles.federated_login_img}`}
+              srcSet="imgs/github-mark.png 2x"
               src="imgs/github-mark.png"
             />
             Login with GitHub
           </button>
           <button
             onClick={loginWithGoogle}
-            class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 border border-input dark:border-gray-500 bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2"
+            className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 border border-input dark:border-gray-500 bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2"
             type="button"
           >
             <img
@@ -119,7 +118,7 @@ const LoginForm = ({ setTab }) => {
               height="24"
               decoding="async"
               data-nimg="1"
-              class={`mr-2 ${styles.federated_login_img}`}
+              className={`mr-2 ${styles.federated_login_img}`}
               src="imgs/google.svg"
             />
             Login with Google

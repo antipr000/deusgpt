@@ -1,7 +1,8 @@
 import { Montserrat } from "next/font/google";
-import StoreProvider from "../store/StoreProvider";
 import "../styles/global.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Provider } from "jotai";
+import { store } from "../store/store";
 
 export const metadata = {
   title: "DeusGPT",
@@ -17,7 +18,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={montserrat.className}>
       <body className="bg-[#ccddec] h-[100vh]">
-        <StoreProvider>{children}</StoreProvider>
+        <Provider store={store}>{children}</Provider>
       </body>
     </html>
   );

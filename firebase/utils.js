@@ -1,5 +1,4 @@
 import { createUser, register } from "../api";
-import firebase_app from "./config";
 import {
   signInWithEmailAndPassword,
   getAuth,
@@ -7,6 +6,9 @@ import {
   GoogleAuthProvider,
   GithubAuthProvider,
 } from "firebase/auth";
+import { store } from "../store/store";
+import { idTokenAtom, userAtom } from "../store";
+import firebase_app from "./config"; // Keep this import as it initializes firebase
 
 export async function loginWithGoogle() {
   const provider = new GoogleAuthProvider();
@@ -14,7 +16,8 @@ export async function loginWithGoogle() {
   const result = await signInWithPopup(auth, provider);
   const idToken = await result.user.getIdToken(true);
   const user = await createUser(idToken);
-  console.log(user);
+  store.set(idTokenAtom, () => idToken);
+  store.set(userAtom, () => user);
 }
 
 export async function loginWithGithub() {
@@ -23,7 +26,8 @@ export async function loginWithGithub() {
   const result = await signInWithPopup(auth, provider);
   const idToken = await result.user.getIdToken(true);
   const user = await createUser(idToken);
-  console.log(user);
+  store.set(idTokenAtom, () => idToken);
+  store.set(userAtom, () => user);
 }
 
 export async function registerWithEmail(email, password, firstName, lastName) {
@@ -31,12 +35,14 @@ export async function registerWithEmail(email, password, firstName, lastName) {
   const auth = getAuth();
   const result = await signInWithEmailAndPassword(auth, email, password);
   const idToken = await result.user.getIdToken(true);
-  console.log(user, idToken);
+  store.set(idTokenAtom, () => idToken);
+  store.set(userAtom, () => user);
 }
 
 export async function loginWithEmail(email, password) {
   const auth = getAuth();
   const result = await signInWithEmailAndPassword(auth, email, password);
   const idToken = await result.user.getIdToken(true);
-  console.log(user, idToken);
+  store.set(idTokenAtom, () => idToken);
+  store.set(userAtom, () => user);
 }

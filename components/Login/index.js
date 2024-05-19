@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import React, { useState } from "react";
 import styles from "./Login.module.css";
@@ -7,15 +7,15 @@ import RegistrationForm from "./RegistrationForm";
 import ForgotPasswordForm from "./ForgotPasswordForm";
 
 const Form = ({ tab, setTab }) => {
-  switch(tab) {
-    case 'login':
-      return <LoginForm setTab={setTab}/>;
-    case 'register':
+  switch (tab) {
+    case "login":
+      return <LoginForm setTab={setTab} />;
+    case "register":
       return <RegistrationForm />;
-    case 'forgot_password':
-      return <ForgotPasswordForm />
+    case "forgot_password":
+      return <ForgotPasswordForm />;
   }
-}
+};
 
 const Input = ({ onChange, name, ...rest }) => {
   return (
@@ -32,19 +32,30 @@ const Input = ({ onChange, name, ...rest }) => {
 };
 
 const Login = () => {
-  const [tab, setTab] = useState('login');
+  const [tab, setTab] = useState("login");
 
   return (
     <div
       className="bg-white h-[520px] p-6 shadow-lg border-2 w-full max-w-[450px] 
       mt-[24px]"
     >
-      <div class="flex w-full flex-col justify-center space-y-6 h-96">
-        <div class="tab">
-          <button class="tablink" onClick={() => setTab('login')} id="defaultOpen">Login</button>
-					<button class={`tablink ${styles.register_tab}`} onClick={() => setTab('register')}>Register</button>
-				</div>
-        <Form tab={tab} setTab={setTab}/>
+      <div className="flex w-full flex-col justify-center space-y-6 h-96">
+        <div className="tab">
+          <button
+            className="tablink"
+            onClick={() => setTab("login")}
+            id="defaultOpen"
+          >
+            Login
+          </button>
+          <button
+            className={`tablink ${styles.register_tab}`}
+            onClick={() => setTab("register")}
+          >
+            Register
+          </button>
+        </div>
+        <Form tab={tab} setTab={setTab} />
       </div>
     </div>
   );

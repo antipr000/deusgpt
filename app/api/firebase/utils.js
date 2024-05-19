@@ -1,10 +1,9 @@
 import * as admin from "firebase-admin";
-import { getApps } from "firebase/app";
+import { getApps } from "firebase-admin/app";
 import { Plan } from "../domain/Plan";
 import { serviceAccount } from "../../../deuse-firebase-admin";
 
 const apps = getApps();
-
 const firebase_admin =
   apps.length === 0
     ? admin.initializeApp({
