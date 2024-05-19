@@ -67,7 +67,7 @@ const Footer = () => {
       <div className="x78zum5 x1l7klhg x1iyjqo2 x2lah0s x1a02dak xd2bs7b x5bj0eh x1sje56t x2b88hg x17tu2g0 xnjo89n x1u140kg x1upty2d x1i8puum">
         <div className="x193iq5w xh8yej3 x9f619 xdl72j9 x1c4vz4f x2lah0s x10rn61k x1p4a80c x1n2gxj2 x3yeff4 xhuz21x x1jcwenj x1s0dajt x1gnvfkl x8lmfi4 x137jj4x x1dshhg4 x14z7tpn">
           <div
-            className="flex justify-start items-center gap-4 px-6"
+            className="d-flex justify-start items-center gap-4 px-6"
             style={{ left: "50px", position: "relative" }}
           >
             <a

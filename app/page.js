@@ -1,11 +1,7 @@
-"use client";
-
 import React from "react";
 import LandingPageNavbar from "../components/Navbar/landing.navbar";
 import Hero from "../components/Hero";
 import Footer from "../components/Footer/footer";
-import { useAtomValue } from "jotai";
-import { idTokenAtom } from "../store";
 
 const Home = () => {
   return (
