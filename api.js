@@ -13,4 +13,9 @@ async function createUser(idToken) {
     return data;
 }
 
-export { createUser };
+async function register(email, password, firstName, lastName) {
+    const { data } = await instance.post('/register', { email, password, firstName, lastName });
+    return data;
+}
+
+export { createUser, register };

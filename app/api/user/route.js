@@ -7,6 +7,8 @@ export async function POST(request) {
     const idToken = requestBody["idToken"];
     const data = await getUserFederatedData(idToken);
     const userRepository = new UserRepository();
+    const record = userRepository.getUserById(data.id);
+    if (record) return NextResponse.json(record);
     const userData = await userRepository.createNewUser(data);
     return NextResponse.json(userData);
 }
