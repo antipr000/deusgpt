@@ -1,7 +1,21 @@
-"use client";
+'use client'
 
-import { useState } from "react";
-import Link from "next/link";
+import React, { useState } from "react";
+import styles from "./Login.module.css";
+import LoginForm from "./LoginForm";
+import RegistrationForm from "./RegistrationForm";
+import ForgotPasswordForm from "./ForgotPasswordForm";
+
+const Form = ({ tab, setTab }) => {
+  switch(tab) {
+    case 'login':
+      return <LoginForm setTab={setTab}/>;
+    case 'register':
+      return <RegistrationForm />;
+    case 'forgot_password':
+      return <ForgotPasswordForm />
+  }
+}
 
 const Input = ({ onChange, name, ...rest }) => {
   return (
@@ -18,84 +32,19 @@ const Input = ({ onChange, name, ...rest }) => {
 };
 
 const Login = () => {
-  const [values, setValues] = useState({
-    email: "",
-    password: "",
-  });
-
-  const onChange = (name, value) => {
-    setValues((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-  };
+  const [tab, setTab] = useState('login');
 
   return (
     <div
       className="bg-white h-[520px] p-6 shadow-lg border-2 w-full max-w-[450px] 
       mt-[24px]"
     >
-      <div className="flex justify-between">
-        <Link href="/login" className="text-red-500 text-[17px] font-[400]">
-          Login
-        </Link>
-        <Link href="/register" className="text-red-500 text-[17px] font-[400]">
-          Register
-        </Link>
-      </div>
-      <div className="mt-[30px]">
-        <div className="text-center font-medium">
-          Create an account or log in
-        </div>
-
-        <div className="grid gap-6 mt-[6px]">
-          <form onSubmit={onSubmit}>
-            <div className="grid gap-2">
-              <div className="grid">
-                <Input
-                  name="email"
-                  placeholder="name@example.com"
-                  onChange={onChange}
-                  value={values.email}
-                  type="email"
-                />
-              </div>
-              <div className="grid">
-                <Input
-                  name="password"
-                  placeholder="password"
-                  onChange={onChange}
-                  value={values.password}
-                  type="password"
-                />
-              </div>
-
-              <button
-                className="inline-flex items-center justify-center whitespace-nowrap
-                rounded-md text-sm font-medium ring-offset-background transition-colors 
-                focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 
-                border border-input dark:border-gray-500 bg-background hover:bg-[#f3f3f2] 
-                h-10 px-4 py-2"
-              >
-                Login
-              </button>
-            </div>
-          </form>
-
-          <button className="border-none outline-none text-[17px] font-[400]">
-            I forgot my password?
-          </button>
-
-          <div className="relative">
-            <div className="absolute inset-0 flex items-center">
-              <span className="w-full border-t"></span>
-            </div>
-            <div className="relative z-10 flex justify-center text-xs uppercase">
-              <span className="bg-white px-2 text-[#766f6b]">Or continue</span>
-            </div>
-          </div>
-        </div>
+      <div class="flex w-full flex-col justify-center space-y-6 h-96">
+        <div class="tab">
+          <button class="tablink" onClick={() => setTab('login')} id="defaultOpen">Login</button>
+					<button class={`tablink ${styles.register_tab}`} onClick={() => setTab('register')}>Register</button>
+				</div>
+        <Form tab={tab} setTab={setTab}/>
       </div>
     </div>
   );

@@ -1,4 +1,5 @@
-import styles from "../../styles/Footer.module.css";
+import { redirect } from "next/navigation";
+import styles from "./Footer.module.css";
 
 const footerSections = [
     {

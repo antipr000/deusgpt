@@ -1,4 +1,6 @@
-import styles from "../../styles/LandingPageNavbar.module.css";
+'use client'
+import { useRouter } from "next/navigation";
+import styles from "./LandingPageNavbar.module.css";
 
 const navRoutes = [
     {name: "Home", link: "/"},
@@ -25,6 +27,7 @@ const NavLink = ({ name, link }) => {
 }
 
 const LandingPageNavbar = () => {
+    const router = useRouter();
     return(
         <header className="px-3 py-4 md:px-6 md:py-7 flex md:grid md:grid-cols-6 h-[72px] md:h-[96px]">
 		    <div className={`flex-1 flex items-center justify-center md:col-span-4 md:col-start-2 ${styles.container}`}>
@@ -41,7 +44,9 @@ const LandingPageNavbar = () => {
 				    </div>
 			    </div>
                 <p className={`text-sm font-medium mr-3 hidden md:block ${styles.register_btn_container}`}>
-                    <button className={`inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 underline-offset-4 h-10 p-0 hover:text-primaryaccent ${styles.register_btn}`}>
+                    <button 
+                        onClick={() => router.push('/login')}
+                        className={`inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 underline-offset-4 h-10 p-0 hover:text-primaryaccent ${styles.register_btn}`}>
                         <a className="inline-block transition duration-200 ease-in-out  text-content-emphasis font-medium" target="_blank" href="#" 
                             style={{
                                 fontSize: "1.1rem",

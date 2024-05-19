@@ -1,5 +1,6 @@
 import { Montserrat } from "next/font/google";
 import "../styles/global.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export const metadata = {
   title: "DeusGPT",
