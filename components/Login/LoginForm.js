@@ -1,5 +1,6 @@
 'use client'
 
+import { loginWithGoogle } from "../../firebase/utils";
 import styles from "./Login.module.css";
 
 const LoginForm = ({ setTab }) => {
@@ -30,8 +31,8 @@ const LoginForm = ({ setTab }) => {
               </div>
               <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 border border-input dark:border-gray-500 bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2" type="button">
               <img alt="Github Logo" loading="lazy" width="24" height="24" decoding="async" data-nimg="1" class={`mr-2 ${styles.federated_login_img}`} srcset="imgs/github-mark.png 2x" src="imgs/github-mark.png" />Login with GitHub</button>
-              <button class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 border border-input dark:border-gray-500 bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2" type="button">
-              <img alt="Google Logo" loading="lazy" width="24" height="24" decoding="async" data-nimg="1" class={`mr-2 ${styles.federated_login_img}`}  src="imgs/google.svg" />Login with Google</button>
+              <button onClick={loginWithGoogle} class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 border border-input dark:border-gray-500 bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2" type="button">
+              <img alt="Google Logo" loading="lazy" width="24" height="24" decoding="async" data-nimg="1" class={`mr-2 ${styles.federated_login_img}`}  src="imgs/google.svg"/>Login with Google</button>
             </div>
           </div>
         </div>
