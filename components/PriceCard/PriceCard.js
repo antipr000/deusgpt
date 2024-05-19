@@ -1,3 +1,7 @@
+"use client";
+
+import { generateStripeSessionToken } from "../../api";
+import { loadStripe } from "@stripe/stripe-js";
 import styles from "./PriceCard.module.css";
 
 const Feature = ({ description, index }) => {
@@ -33,6 +37,16 @@ const PriceCard = ({
   features,
   index,
 }) => {
+  const handleClick = async () => {
+    const sessionId = await generateStripeSessionToken(9.99);
+    const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
+    const stripe = await loadStripe(publishableKey);
+    const result = await stripe.redirectToCheckout({
+      sessionId: sessionId,
+    });
+    console.log("Stripe result", result);
+  };
+
   return (
     <div className={`${styles.container}`} key={index}>
       <div>
@@ -58,7 +72,9 @@ const PriceCard = ({
           </span>
         </p>
       </div>
-      <button className={styles.upgrade_btn}>Purchase now</button>
+      <button className={styles.upgrade_btn} onClick={handleClick}>
+        Purchase now
+      </button>
       <div>
         <ul className={styles.feature_list}>
           {features.map((description, index) => (

@@ -1,7 +1,10 @@
+"use client";
 import React from "react";
 import LandingPageNavbar from "../../components/Navbar/landing.navbar";
 import Footer from "../../components/Footer/footer";
 import PriceCard from "../../components/PriceCard/PriceCard";
+import { useAtomValue } from "jotai";
+import { idTokenAtom } from "../../store";
 
 const pricingOptions = [
   {
