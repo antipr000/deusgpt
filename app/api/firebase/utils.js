@@ -3,13 +3,12 @@ import { getApps } from "firebase-admin/app";
 import { Plan } from "../domain/Plan";
 import { serviceAccount } from "../../../deuse-firebase-admin";
 
-const apps = getApps();
 const firebase_admin =
-  apps.length === 0
+  getApps().length === 0
     ? admin.initializeApp({
         credential: admin.credential.cert(serviceAccount),
       })
-    : apps.get[0];
+    : getApps()[0];
 
 async function getUidFromIdToken(idToken) {
   const decodedToken = await firebase_admin.auth().verifyIdToken(idToken);
