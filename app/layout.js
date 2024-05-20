@@ -4,6 +4,7 @@ import "../styles/global.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Provider } from "jotai";
 import { store } from "../store/store";
+import Loader from "../components/Loader";
 
 export const metadata = {
   title: "DeusGPT",
@@ -20,7 +21,10 @@ export default function RootLayout({ children }) {
     <html lang="en" className={montserrat.className}>
       <body className="bg-[#ccddec] h-[100vh]">
         <AppRouterCacheProvider>
-          <Provider store={store}>{children}</Provider>
+          <Provider store={store}>
+            <Loader />
+            {children}
+          </Provider>
         </AppRouterCacheProvider>
       </body>
     </html>

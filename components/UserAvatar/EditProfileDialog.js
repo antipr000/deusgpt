@@ -8,6 +8,8 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { updateUser } from "../../api";
+import { useAtom } from "jotai";
+import { loaderAtom } from "../../store";
 
 const Input = ({ onChange, name, ...rest }) => {
   return (
@@ -24,7 +26,8 @@ const Input = ({ onChange, name, ...rest }) => {
 };
 
 const EditProfileDialog = ({ open, setOpen, user }) => {
-  const [userData, setUserData] = useState({...user});
+  const [userData, setUserData] = useState({ ...user });
+  const [_, setIsloading] = useAtom(loaderAtom);
 
   const handleClose = () => {
     setOpen(false);
@@ -40,7 +43,9 @@ const EditProfileDialog = ({ open, setOpen, user }) => {
     if (!firstName || !lastName) {
       window.alert("Both First Name and Last Name are mandatory!");
     } else {
+      setIsloading(true);
       await updateUser(userData);
+      setIsloading(false);
       handleClose();
     }
   };

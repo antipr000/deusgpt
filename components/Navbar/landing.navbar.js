@@ -26,7 +26,8 @@ const NavLink = ({ name, link }) => {
           >
             <Link
               href={link}
-              className={`inline-block transition duration-200 ease-in-out hover:text-primaryaccent text-content-emphasis font-medium ${styles.nav_link}`}
+              className={`inline-block transition duration-200 ease-in-out hover:text-primaryaccent text-content-emphasis
+               font-medium ${styles.nav_link} text-black no-underline hover:no-underline`}
             >
               {name}
             </Link>
@@ -67,7 +68,8 @@ const LandingPageNavbar = ({ shortIcon }) => {
               className={`${styles.register_btn} inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 underline-offset-4 h-10 p-0 hover:text-primaryaccent`}
             >
               <Link
-                className="inline-block transition duration-200 ease-in-out  text-content-emphasis font-medium"
+                className="inline-block transition duration-200 ease-in-out  text-content-emphasis font-medium
+                 text-black no-underline hover:no-underline"
                 href="/login"
                 style={{
                   fontSize: "1.1rem",
