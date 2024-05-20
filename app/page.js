@@ -11,18 +11,11 @@ import { getUser } from "../api";
 
 const Home = () => {
   const idToken = useAtomValue(idTokenAtom);
-  const user = useAtomValue(userAtom);
 
   console.log("Received new id token value", idToken);
 
-  useEffect(() => {
-    if (idToken) {
-      getUser();
-    }
-  }, [idToken]);
-
-  return !!idToken && !!user ? (
-    <LoggedInHome user={user} />
+  return !!idToken ? (
+    <LoggedInHome />
   ) : (
     <div className="!inset-0 flex flex-col font-montserrat selection:bg-selection bg-background text-foreground">
       <LandingPageNavbar />

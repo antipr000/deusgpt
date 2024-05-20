@@ -1,6 +1,6 @@
 import axios from "axios";
 import { store } from "./store/store";
-import { idTokenAtom, userAtom } from "./store";
+import { idTokenAtom, loaderAtom, userAtom } from "./store";
 import { firebaseSignOut } from "./firebase/utils";
 
 const instance = axios.create({
@@ -51,9 +51,9 @@ async function getUser() {
       const { data } = await instance.get("/user");
       store.set(userAtom, () => data);
     } catch (err) {
+      console.log("Here");
       await firebaseSignOut();
-      store.set(idTokenAtom, () => null);
-      store.set(userAtom, () => null);
+      store.set(loaderAtom, () => ({ show: false, message: null }));
     }
   }
 }

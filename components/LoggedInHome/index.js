@@ -6,9 +6,8 @@ import MainContent from "./MainContent";
 import { useAtom, useAtomValue } from "jotai";
 import { loaderAtom, userAtom } from "../../store";
 import { getUser } from "../../api";
-import Loader from "../Loader";
 
-const LoggedInHome = ({ user }) => {
+const LoggedInHome = () => {
   const user = useAtomValue(userAtom);
   const [_, setLoader] = useAtom(loaderAtom);
 

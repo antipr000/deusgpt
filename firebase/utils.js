@@ -55,5 +55,11 @@ export async function resetPassword(email) {
 }
 
 export async function firebaseSignOut() {
-  await signOut();
+  try {
+    await signOut();
+  } catch (e) {
+    // pass
+  }
+  store.set(idTokenAtom, () => null);
+  store.set(userAtom, () => null);
 }
