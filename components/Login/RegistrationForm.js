@@ -44,15 +44,15 @@ const RegistrationForm = () => {
   };
 
   return (
-    <div id="Register" class={`tabcontent ${styles.login_form_container}`}>
-      <div class="flex flex-col space-y-2 text-center">
+    <div id="Register" className={`tabcontent ${styles.login_form_container}`}>
+      <div className="flex flex-col space-y-2 text-center">
         <div className="inline-block transition duration-200 ease-in-out text-content-emphasis font-medium">
           Create an account
         </div>
         <div className="grid gap-6">
           <form>
-            <div class="grid gap-2">
-              <div class="grid gap-1">
+            <div className="grid gap-2">
+              <div className="grid gap-1">
                 <input
                   value={registrationData.firstName}
                   onChange={onChange}
@@ -63,7 +63,7 @@ const RegistrationForm = () => {
                   required
                 />
               </div>
-              <div class="grid gap-1">
+              <div className="grid gap-1">
                 <input
                   value={registrationData.lastName}
                   onChange={onChange}
@@ -74,7 +74,7 @@ const RegistrationForm = () => {
                   required
                 />
               </div>
-              <div class="grid gap-1">
+              <div className="grid gap-1">
                 <input
                   value={registrationData.email}
                   onChange={onChange}
@@ -85,7 +85,7 @@ const RegistrationForm = () => {
                   required
                 />
               </div>
-              <div class="grid gap-1">
+              <div className="grid gap-1">
                 <input
                   value={registrationData.password}
                   onChange={onChange}
@@ -97,7 +97,7 @@ const RegistrationForm = () => {
                   required
                 />
               </div>
-              <div class="grid gap-1">
+              <div className="grid gap-1">
                 <input
                   value={registrationData.retypedPassword}
                   onChange={onChange}
@@ -109,7 +109,7 @@ const RegistrationForm = () => {
                   required
                 />
               </div>
-              <div class={`grid gap-1 d-flex w-100 justify-center`}>
+              <div className={`grid gap-1 d-flex w-100 justify-center`}>
                 <input
                   value={termsAccepted}
                   onChange={onCheckChanged}
@@ -118,6 +118,7 @@ const RegistrationForm = () => {
                   aria-errormessage=":R1j6eedaakldd6pd5aq:"
                   aria-invalid="false"
                   type="checkbox"
+                  id="termsAccepted"
                 />
                 <span> I Accept the Rules </span>
               </div>

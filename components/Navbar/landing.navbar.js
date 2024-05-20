@@ -12,7 +12,7 @@ const navRoutes = [
 
 const NavLink = ({ name, link }) => {
   return (
-    <div role="listitem" key={{ link }}>
+    <div role="listitem" key={link}>
       <div className="xeuugli x2lwn1j x6s0dn4 x78zum5 xl56j7k x5yr21d">
         <div className="xeuugli x2lwn1j x6s0dn4 x78zum5">
           <div
@@ -46,7 +46,7 @@ const LandingPageNavbar = () => {
               <div className="xeuugli x2lwn1j x1qjc9v5 x78zum5 xl56j7k">
                 <div className="x78zum5 xkh2ocl xl56j7k" role="list">
                   {navRoutes.map(({ name, link }) => (
-                    <NavLink name={name} link={link} />
+                    <NavLink name={name} link={link} key={link} />
                   ))}
                   <div className="xg01cxk xw4jnvo"></div>
                 </div>

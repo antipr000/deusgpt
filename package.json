@@ -8,6 +8,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@lobehub/ui": "^1.138.25",
     "axios": "^1.6.8",
     "bootstrap": "^5.3.3",
     "firebase": "^10.12.0",

@@ -40,7 +40,7 @@ const FooterSection = ({ name, options }) => {
         </div>
         <div role="list"></div>
         {options.map(({ name, link }) => (
-          <div className="x12nagc" role="listitem">
+          <div className="x12nagc" role="listitem" key={link}>
             <span className="xbks1sj x17gzxuv x1rujz1s xm5vtmc x3voqp2 x658qfi x1wsgf3v xn1wy4v x1k03ns3 xpbi8i2 xh2n1af x1npfmwo xg94uf4 xrm2kyc xjprkx4 xawl3gl x12429cg x6tc29j xbq7h4v x6jdkww xq9mrsl">
               <a
                 className="x1i10hfl x1qjc9v5 xjbqb8w xjqpnuy xa49m3k xqeqjp1 x2hbi6w x13fuv20 xu3j5b3 x1q0q8m5 x26u7qi x972fbf xcfux6l x1qhh985 xm0m39n x9f619 x1ypdohk xdl72j9 xdt5ytf x2lah0s xe8uvvx xdj266r x11i5rnm xat24cr x1mh8g0r x2lwn1j xeuugli xexx8yu x4uap5 x18d9i69 xkhd6sd x1n2onr6 x16tdsg8 xggy1nq x1ja2u2z x1t137rt xt0psk2 x1hl2dhg xt0b8zv x1heor9g"
@@ -184,7 +184,7 @@ const Footer = () => {
           <div className="x78zum5 x1l7klhg x1iyjqo2 x2lah0s x1a02dak xd2bs7b x5bj0eh x1sje56t x2b88hg x17tu2g0 xnjo89n xo2o5nc xv9pgs7 xjfzuef x137v6ai x1mj2il2"></div>
           <div className="x78zum5 x1l7klhg x1iyjqo2 x2lah0s x1a02dak xd2bs7b x5bj0eh x1sje56t x2b88hg x17tu2g0 xnjo89n xo2o5nc xv9pgs7 xjfzuef x137v6ai xtv8dzd">
             {footerSections.map(({ name, options }) => (
-              <FooterSection name={name} options={options} />
+              <FooterSection name={name} options={options} key={name} />
             ))}
           </div>
         </div>
