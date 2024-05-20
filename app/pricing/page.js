@@ -5,31 +5,7 @@ import Footer from "../../components/Footer/footer";
 import PriceCard from "../../components/PriceCard/PriceCard";
 import { useAtomValue } from "jotai";
 import { idTokenAtom } from "../../store";
-
-const pricingOptions = [
-  {
-    heading: "Standard",
-    description: "Free trial of DeusGPT",
-    planId: "standard",
-    discountedPrice: 0,
-    originalPrice: 0,
-    popular: false,
-    features: ["ChatGPT 3.5", "15k tokens per day"],
-  },
-  {
-    heading: "Premium",
-    description: "Get access to exclusive features.",
-    planId: "premium",
-    discountedPrice: 9.99,
-    originalPrice: 15,
-    popular: true,
-    features: [
-      "ChatGPT 4.0 access",
-      "15k tokens per day",
-      "Translate available",
-    ],
-  },
-];
+import { pricingOptions } from "../../utils";
 
 const Pricing = () => {
   const idToken = useAtomValue(idTokenAtom);

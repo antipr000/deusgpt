@@ -38,8 +38,10 @@ async function generateStripeSessionToken(price, plan, idempotencyKey) {
   return data.sessionId;
 }
 
-async function getPaymentStatus(sessionId) {
-  await instance.get(`/payment/confirm?sessionId=${sessionId}`);
+async function getPaymentStatus(signal) {
+  const { data } = await instance.get(`/payment/confirm?signal=${signal}`);
+
+  return data;
 }
 
 async function getUser() {

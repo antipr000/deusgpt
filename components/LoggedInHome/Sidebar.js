@@ -1,8 +1,35 @@
+"use client";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
 import UserAvatar from "../UserAvatar";
+import { useSearchParams } from "next/navigation";
+import { useAtom, useAtomValue } from "jotai";
+import { idTokenAtom, loaderAtom } from "../../store";
+import { initiatePayment, pricingOptions } from "../../utils";
 
 const Sidebar = ({ user }) => {
+  const searchParams = useSearchParams();
+  const mode = searchParams.get("mode");
+  const planId = searchParams.get("planId");
+  const idToken = useAtomValue(idTokenAtom);
+  const [_, setLoader] = useAtom(loaderAtom);
+
+  const handlePayment = async (planId) => {
+    const { discountedPrice } = pricingOptions.find(
+      (option) => option.planId === planId
+    );
+    setLoader({
+      show: true,
+      message: "Please wait while we process your request",
+    });
+    await initiatePayment(idToken, discountedPrice, planId);
+    setLoader({ show: false, message: null });
+  };
+
+  if (mode === "payment" && planId) {
+    handlePayment(planId);
+  }
+
   return (
     <div className="flex flex-col h-full w-[200px]">
       <Link href="/" className="w-[80px] h-[80px] mt-4 ml-3 md:mt-7 md:ml-6">

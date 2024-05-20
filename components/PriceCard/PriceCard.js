@@ -3,8 +3,10 @@
 import { generateStripeSessionToken } from "../../api";
 import { loadStripe } from "@stripe/stripe-js";
 import styles from "./PriceCard.module.css";
-import { useAtomValue } from "jotai";
-import { idTokenAtom } from "../../store";
+import { useAtom, useAtomValue } from "jotai";
+import { idTokenAtom, loaderAtom } from "../../store";
+import { useRouter } from "next/navigation";
+import { initiatePayment } from "../../utils";
 
 const Feature = ({ description, index }) => {
   return (
@@ -40,20 +42,20 @@ const PriceCard = ({
   features,
   index,
 }) => {
+  const router = useRouter();
   const idToken = useAtomValue(idTokenAtom);
+  const [_, setLoader] = useAtom(loaderAtom);
   const handleClick = async () => {
-    const idempotencyKey = `${idToken}_${new Date().valueOf()}`;
-    const sessionId = await generateStripeSessionToken(
-      discountedPrice,
-      planId,
-      idempotencyKey
-    );
-    const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
-    const stripe = await loadStripe(publishableKey);
-    const result = await stripe.redirectToCheckout({
-      sessionId: sessionId,
+    if (!idToken) {
+      router.push(`/login&mode=payment&planId=${planId}`);
+      return;
+    }
+    setLoader({
+      show: true,
+      message: "Please wait while we process your request.",
     });
-    console.log("Stripe result", result);
+    await initiatePayment(idToken, discountedPrice, planId);
+    setLoader({ show: false, message: null });
   };
 
   return (

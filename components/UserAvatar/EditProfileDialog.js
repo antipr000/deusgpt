@@ -27,7 +27,7 @@ const Input = ({ onChange, name, ...rest }) => {
 
 const EditProfileDialog = ({ open, setOpen, user }) => {
   const [userData, setUserData] = useState({ ...user });
-  const [_, setIsloading] = useAtom(loaderAtom);
+  const [_, setLoader] = useAtom(loaderAtom);
 
   const handleClose = () => {
     setOpen(false);
@@ -43,9 +43,12 @@ const EditProfileDialog = ({ open, setOpen, user }) => {
     if (!firstName || !lastName) {
       window.alert("Both First Name and Last Name are mandatory!");
     } else {
-      setIsloading(true);
+      setLoader({
+        show: true,
+        message: "Please wait while we process your request!",
+      });
       await updateUser(userData);
-      setIsloading(false);
+      setLoader({ show: false, message: null });
       handleClose();
     }
   };

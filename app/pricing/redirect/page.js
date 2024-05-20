@@ -1,6 +1,6 @@
 "use client";
 import { useAtomValue } from "jotai";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { idTokenAtom } from "../../../store";
 import { useEffect, useState } from "react";
 import { getPaymentStatus } from "../../../api";
@@ -10,17 +10,25 @@ import { Done, Info } from "@mui/icons-material";
 
 const PaymentRedirection = () => {
   const idToken = useAtomValue(idTokenAtom);
-  const [paymentStatus, setPaymentStatus] = useState("failure");
-
-  //   useEffect(() => {
-  //     getPaymentStatus(
-  //       "cs_test_a1cFNKwTv9AvsMSFgCQEoFJyhoYH577CVDzbs8Pso7rtBpWFORWTrm4RzQ"
-  //     );
-  //   }, []);
-
-  console.log("Received new id token value", idToken);
+  const router = useRouter();
+  const [paymentStatus, setPaymentStatus] = useState("pending");
   const searchParams = useSearchParams();
-  console.log("Search params", searchParams.get("status"));
+  const signal = searchParams.get("status");
+  useEffect(() => {
+    async function fetchPaymentInfo() {
+      const payment = await getPaymentStatus(signal);
+      if (payment.status === "success") {
+        setPaymentStatus("success");
+      } else if (payment.status === "pending") {
+        setPaymentStatus("pending");
+      } else {
+        setPaymentStatus("failure");
+      }
+    }
+
+    fetchPaymentInfo();
+  }, []);
+
   return (
     <div>
       <Modal
@@ -56,7 +64,7 @@ const PaymentRedirection = () => {
               <Done color="success" fontSize="large" />
               <Typography>Your payment was successful</Typography>
 
-              <Button>Go back</Button>
+              <Button onClick={() => router.push("/")}>Go back</Button>
             </>
           )}
 
@@ -64,7 +72,7 @@ const PaymentRedirection = () => {
             <>
               <Info color="error" fontSize="large" />
               <Typography> Sorry, your payment failed! </Typography>
-              <Button> Go back </Button>
+              <Button onClick={() => router.push("/")}> Go back </Button>
             </>
           )}
         </Box>

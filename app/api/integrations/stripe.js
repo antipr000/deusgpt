@@ -1,6 +1,8 @@
 import { Stripe } from "stripe";
 import PaymentRepository from "../db/repositories/Payment.repository";
 import { PaymentStatus } from "../domain/PaymentStatus";
+import UserRepository from "../db/repositories/User.repository";
+import { Plan } from "../domain/Plan";
 
 export default class StripeUtils {
   constructor() {
@@ -43,10 +45,44 @@ export default class StripeUtils {
     return paymentData;
   }
 
-  async getPaymentStatus(sessionId) {
+  async getPaymentStatus(firebaseId, signal) {
+    const paymentRepository = new PaymentRepository();
+    const userRepository = new UserRepository();
+    const payment = await paymentRepository.getLatestPendingPaymentForUser(
+      firebaseId
+    );
+    /**
+     * Stripe Docs:
+     * invoice: ID of the invoice created by the Checkout Session, if it exists, null otherwise
+     * payment_status: `paid`, `unpaid`, or `no_payment_required`
+     * status:  `open`, `complete`, or `expired`
+     */
     const { invoice, payment_status, status } =
-      await this.stripe.checkout.sessions.retrieve(sessionId);
+      await this.stripe.checkout.sessions.retrieve(payment.sessionId);
 
     console.log("Stripe payment info: ", invoice, payment_status, status);
+
+    if (payment_status === "paid") {
+      // For paid, we don't need any other check, update db
+      let expiryDate = new Date();
+      expiryDate.setMonth(expiryDate.getMonth() + 1);
+      expiryDate.setHours(0, 0, 0, 0);
+      await userRepository.updateUser(firebaseId, {
+        plan: Plan.PREMIUM,
+        planExpiry: expiryDate,
+      });
+      return await paymentRepository.updatePayment(payment._id, {
+        invoiceId: invoice,
+        completedAt: new Date(),
+        status: PaymentStatus.SUCCESS,
+      });
+    } else if (signal === "cancel") {
+      return await paymentRepository.updatePayment(payment._id, {
+        status: PaymentStatus.CANCELLED,
+        completedAt: new Date(),
+      });
+    }
+    // Still pending, return the current payment info we have
+    return payment;
   }
 }
