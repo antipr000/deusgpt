@@ -29,9 +29,11 @@ class UserRepository {
     return data;
   }
 
-  async updateUser(id, userData) {
+  async updateUser(firebaseId, userData) {
     const userModel = await this.dbProvider.getUserModel();
-    const data = userModel.findOneAndUpdate({ id }, userData, { new: true });
+    const data = userModel.findOneAndUpdate({ firebaseId }, userData, {
+      new: true,
+    });
     return data;
   }
 }
