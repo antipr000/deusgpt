@@ -44,9 +44,6 @@ const Login = () => {
             </div>
           </div>
         </div>
-        <div className={`row ${styles.footer_container}`}>
-          <Footer />
-        </div>
       </div>
     </div>
   );

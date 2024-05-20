@@ -6,6 +6,7 @@ import {
   GoogleAuthProvider,
   GithubAuthProvider,
   sendPasswordResetEmail,
+  signOut,
 } from "firebase/auth";
 import { store } from "../store/store";
 import { idTokenAtom, userAtom } from "../store";
@@ -51,4 +52,8 @@ export async function loginWithEmail(email, password) {
 export async function resetPassword(email) {
   const auth = getAuth();
   await sendPasswordResetEmail(auth, email);
+}
+
+export async function firebaseSignOut() {
+  await signOut();
 }

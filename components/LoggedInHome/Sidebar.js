@@ -17,9 +17,16 @@ const Sidebar = ({ user }) => {
       </Link>
 
       <Link
-        href="/profile"
-        className="mt-auto mx-3 md:mx-6 pb-4 w-full flex 
-        items-center gap-[5px] hover:no-underline"
+        href="/pricing"
+        className="p-2 w-[full] mx-4 flex justify-center
+      rounded-md bg-black text-white mt-[45px] no-underline hover:no-underline"
+      >
+        Upgrade Plan
+      </Link>
+
+      <button
+        className="bottom-0 mx-3 md:mx-6 pb-4 w-full flex border-none outline-none
+        items-center gap-[5px] no-underline hover:no-underline fixed"
       >
         <div
           className="min-w-[25px] h-[25px] rounded-[50%] bg-yellow-500
@@ -27,10 +34,10 @@ const Sidebar = ({ user }) => {
         >
           {getAvatarName()[0]}
         </div>
-        <div className="text-ellipsis whitespace-nowrap overflow-hidden">
+        <div className="text-ellipsis whitespace-nowrap overflow-hidden text-black">
           {getAvatarName()}
         </div>
-      </Link>
+      </button>
     </div>
   );
 };

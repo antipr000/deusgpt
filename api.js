@@ -1,6 +1,7 @@
 import axios from "axios";
 import { store } from "./store/store";
-import { idTokenAtom } from "./store";
+import { idTokenAtom, userAtom } from "./store";
+import { firebaseSignOut } from "./firebase/utils";
 
 const instance = axios.create({
   baseURL: "http://localhost:3000/api",
@@ -33,4 +34,18 @@ async function generateStripeSessionToken(price) {
   return data.sessionId;
 }
 
-export { createUser, register, generateStripeSessionToken };
+async function getUser() {
+  const user = store.get(userAtom);
+  if (!user) {
+    try {
+      const { data } = await instance.get("/user");
+      store.set(userAtom, () => data);
+    } catch (err) {
+      await firebaseSignOut();
+      store.set(idTokenAtom, () => null);
+      store.set(userAtom, () => null);
+    }
+  }
+}
+
+export { createUser, register, generateStripeSessionToken, getUser };
