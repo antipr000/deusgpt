@@ -21,7 +21,7 @@ const Sidebar = ({ user }) => {
         className="bottom-0 mx-3 md:mx-6 pb-4 w-full flex border-none outline-none
         items-center gap-[5px] fixed"
       >
-        <UserAvatar user={user} placement="top" />
+        <UserAvatar user={user} placement="top-start" className="mb-[10px]" />
       </div>
     </div>
   );

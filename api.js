@@ -48,4 +48,15 @@ async function getUser() {
   }
 }
 
-export { createUser, register, generateStripeSessionToken, getUser };
+async function updateUser(body) {
+  const { data } = await instance.patch("/user", body);
+  return data;
+}
+
+export {
+  createUser,
+  register,
+  generateStripeSessionToken,
+  getUser,
+  updateUser,
+};

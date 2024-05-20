@@ -63,6 +63,7 @@ const Pricing = () => {
                         popular={popular}
                         features={features}
                         index={index}
+                        key={index}
                       />
                     )
                   )}

@@ -1,5 +1,8 @@
 "use client";
-import { useRouter } from "next/navigation";
+import { useAtomValue } from "jotai";
+import { userAtom } from "../../store";
+import UserAvatar from "../UserAvatar";
+import Link from "next/link";
 import styles from "./LandingPageNavbar.module.css";
 
 const navRoutes = [
@@ -21,11 +24,12 @@ const NavLink = ({ name, link }) => {
             role="button"
             tabIndex="0"
           >
-            <a
+            <Link
+              href={link}
               className={`inline-block transition duration-200 ease-in-out hover:text-primaryaccent text-content-emphasis font-medium ${styles.nav_link}`}
             >
               {name}
-            </a>
+            </Link>
           </div>
         </div>
       </div>
@@ -34,7 +38,8 @@ const NavLink = ({ name, link }) => {
 };
 
 const LandingPageNavbar = ({ shortIcon }) => {
-  const router = useRouter();
+  const user = useAtomValue(userAtom);
+
   return (
     <header className="px-3 py-4 md:px-6 md:py-7 flex md:grid md:grid-cols-6 h-[72px] md:h-[96px]">
       <div
@@ -54,27 +59,40 @@ const LandingPageNavbar = ({ shortIcon }) => {
             </div>
           </div>
         </div>
-        <p
+        <div
           className={`text-sm font-medium mr-3 hidden md:block ${styles.register_btn_container}`}
         >
-          <button
-            onClick={() => router.push("/login")}
-            className={`${styles.register_btn} inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 underline-offset-4 h-10 p-0 hover:text-primaryaccent`}
-          >
-            <a
-              className="inline-block transition duration-200 ease-in-out  text-content-emphasis font-medium"
-              href="#"
-              onClick={() => router.push("/login")}
-              style={{
-                fontSize: "1.1rem",
-                position: "relative",
-                textDecoration: "none",
-              }}
+          {!user ? (
+            <button
+              className={`${styles.register_btn} inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 underline-offset-4 h-10 p-0 hover:text-primaryaccent`}
             >
-              Login / Register
-            </a>
-          </button>
-        </p>
+              <Link
+                className="inline-block transition duration-200 ease-in-out  text-content-emphasis font-medium"
+                href="/login"
+                style={{
+                  fontSize: "1.1rem",
+                  position: "relative",
+                  textDecoration: "none",
+                }}
+              >
+                Login / Register
+              </Link>
+            </button>
+          ) : (
+            <div
+              className="p-[10px] inline-flex items-center justify-center whitespace-nowrap rounded-md 
+              text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none 
+              disabled:pointer-events-none disabled:opacity-50 underline-offset-4 h-10 
+              hover:text-primaryaccent"
+            >
+              <UserAvatar
+                user={user}
+                placement="bottom-end"
+                className="mt-[10px]"
+              />
+            </div>
+          )}
+        </div>
       </div>
       <a href="/" className="h-[40px] fixed top-4 left-3 md:top-7 md:left-6">
         <img

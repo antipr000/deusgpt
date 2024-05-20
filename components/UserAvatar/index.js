@@ -1,8 +1,9 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { Button, Fade, Paper, Popper } from "@mui/material";
+import { Fade, Paper, Popper } from "@mui/material";
 import { Edit } from "@mui/icons-material";
+import EditProfileDialog from "./EditProfileDialog";
 
-const UserAvatar = ({ placement, user }) => {
+const UserAvatar = ({ placement, user, className }) => {
   const [open, setOpen] = useState(false);
   const [showEditProfile, setShowEditProfile] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -25,28 +26,29 @@ const UserAvatar = ({ placement, user }) => {
     setOpen(false);
   };
 
-  //   useEffect(() => {
-  //     document.addEventListener("click", handleClose);
+  useEffect(() => {
+    window.addEventListener("click", handleClose);
 
-  //     return () => {
-  //       document.removeEventListener("click", handleClose);
-  //     };
-  //   }, []);
+    return () => {
+      window.removeEventListener("click", handleClose);
+    };
+  }, []);
 
   return (
     <Fragment>
-      <Popper
-        style={{ zIndex: 1200, marginBottom: "10px" }}
-        open={open}
-        anchorEl={anchorEl}
-        placement={placement}
-        transition
-      >
+      {showEditProfile && (
+        <EditProfileDialog
+          open={showEditProfile}
+          setOpen={setShowEditProfile}
+          user={user}
+        />
+      )}
+      <Popper open={open} anchorEl={anchorEl} placement={placement} transition>
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={350}>
             <Paper>
               <button
-                className="flex gap-2 p-2 normal-case"
+                className={`flex gap-2 p-2 normal-case ${className}`}
                 onClick={() => setShowEditProfile(true)}
               >
                 <Edit /> <span>Edit Profile</span>

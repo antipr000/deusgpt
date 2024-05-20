@@ -16,8 +16,8 @@ const Feature = ({ description, index }) => {
         className={styles.tick_icon}
       >
         <path
-          fill-rule="evenodd"
-          clip-rule="evenodd"
+          fillRule="evenodd"
+          clipRule="evenodd"
           d="M16.1242 1.27115L5.38112 11.6391L2.53032 8.5932C2.00517 8.09806 1.17994 8.06806 0.579775 8.48818C-0.0053927 8.9233 -0.17044 9.6885 0.189661 10.3036L3.56561 15.7952C3.8957 16.3054 4.46586 16.6204 5.11104 16.6204C5.72621 16.6204 6.31138 16.3054 6.64147 15.7952C7.18163 15.09 17.4895 2.80158 17.4895 2.80158C18.8399 1.42119 17.2045 0.205847 16.1242 1.25614V1.27115Z"
           fill="#006AFF"
         ></path>
@@ -78,7 +78,7 @@ const PriceCard = ({
       <div>
         <ul className={styles.feature_list}>
           {features.map((description, index) => (
-            <Feature description={description} index={index} />
+            <Feature key={index} description={description} index={index} />
           ))}
         </ul>
       </div>
