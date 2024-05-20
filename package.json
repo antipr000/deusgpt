@@ -8,7 +8,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/cache": "^11.11.0",
+    "@emotion/server": "^11.11.0",
+    "@emotion/styled": "^11.11.5",
     "@lobehub/ui": "^1.138.25",
+    "@mui/icons-material": "^5.15.18",
+    "@mui/material": "^5.15.18",
+    "@mui/material-nextjs": "^5.15.11",
     "@stripe/stripe-js": "^3.4.0",
     "axios": "^1.6.8",
     "bootstrap": "^5.3.3",

@@ -1,15 +1,8 @@
 import Link from "next/link";
 import React from "react";
+import UserAvatar from "../UserAvatar";
 
 const Sidebar = ({ user }) => {
-  const getAvatarName = () => {
-    if (user.firstName) {
-      return `${user.firstName} ${user.lastName}`;
-    } else {
-      return user.email;
-    }
-  };
-
   return (
     <div className="flex flex-col h-full w-[200px]">
       <Link href="/" className="w-[80px] h-[80px] mt-4 ml-3 md:mt-7 md:ml-6">
@@ -24,20 +17,12 @@ const Sidebar = ({ user }) => {
         Upgrade Plan
       </Link>
 
-      <button
+      <div
         className="bottom-0 mx-3 md:mx-6 pb-4 w-full flex border-none outline-none
-        items-center gap-[5px] no-underline hover:no-underline fixed"
+        items-center gap-[5px] fixed"
       >
-        <div
-          className="min-w-[25px] h-[25px] rounded-[50%] bg-yellow-500
-         text-white flex justify-center items-center"
-        >
-          {getAvatarName()[0]}
-        </div>
-        <div className="text-ellipsis whitespace-nowrap overflow-hidden text-black">
-          {getAvatarName()}
-        </div>
-      </button>
+        <UserAvatar user={user} placement="top" />
+      </div>
     </div>
   );
 };

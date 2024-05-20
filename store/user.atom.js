@@ -1,11 +1,9 @@
 import { atom } from "jotai";
 
 export const userAtom = atom({
-  firstName: "",
-  lastName: "",
-  id: "",
-  email: "",
-  isAdmin: "",
-  plan: "",
-  createdAt: null,
+  _id: "1",
+  firebaseId: "abcd",
+  email: "debjit@gmail.com",
+  firstName: "Debjit",
+  lastName: "Majumder",
 });
