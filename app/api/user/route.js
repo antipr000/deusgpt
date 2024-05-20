@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import UserRepository from "../db/repositories/User.repository";
-import { getUserFederatedData } from "../firebase/utils";
+import { getUidFromIdToken, getUserFederatedData } from "../firebase/utils";
+import { getIDTokenFromRequest } from "../utils";
 
 export async function POST(request) {
   const requestBody = await request.json();
@@ -14,14 +15,18 @@ export async function POST(request) {
 }
 
 export async function GET(request) {
-  const header = request.headers.authorization;
-  console.log(header);
+  const idToken = getIDTokenFromRequest(request);
+  const firebaseId = await getUidFromIdToken(idToken);
+  const userRepository = new UserRepository();
+  const userData = await userRepository.getUserByFirebaseId(firebaseId);
+  return NextResponse.json(userData);
 }
 
 export async function PATCH(request) {
   const requestBody = await request.json();
-
+  const idToken = getIDTokenFromRequest(request);
+  const firebaseId = await getUidFromIdToken(idToken);
   const userRepository = new UserRepository();
-  const userData = await userRepository.updateUser(id, requestBody);
+  const userData = await userRepository.updateUser(firebaseId, requestBody);
   return NextResponse.json(userData);
 }
