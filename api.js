@@ -29,9 +29,17 @@ async function register(email, password) {
   return data;
 }
 
-async function generateStripeSessionToken(price) {
-  const { data } = await instance.post("/payment", { price });
+async function generateStripeSessionToken(price, plan, idempotencyKey) {
+  const { data } = await instance.post("/payment", {
+    price,
+    plan,
+    idempotencyKey,
+  });
   return data.sessionId;
+}
+
+async function getPaymentStatus(sessionId) {
+  await instance.get(`/payment/confirm?sessionId=${sessionId}`);
 }
 
 async function getUser() {
@@ -57,6 +65,7 @@ export {
   createUser,
   register,
   generateStripeSessionToken,
+  getPaymentStatus,
   getUser,
   updateUser,
 };

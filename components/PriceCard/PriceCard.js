@@ -3,6 +3,8 @@
 import { generateStripeSessionToken } from "../../api";
 import { loadStripe } from "@stripe/stripe-js";
 import styles from "./PriceCard.module.css";
+import { useAtomValue } from "jotai";
+import { idTokenAtom } from "../../store";
 
 const Feature = ({ description, index }) => {
   return (
@@ -30,6 +32,7 @@ const Feature = ({ description, index }) => {
 
 const PriceCard = ({
   heading,
+  planId,
   description,
   discountedPrice,
   originalPrice,
@@ -37,8 +40,14 @@ const PriceCard = ({
   features,
   index,
 }) => {
+  const idToken = useAtomValue(idTokenAtom);
   const handleClick = async () => {
-    const sessionId = await generateStripeSessionToken(9.99);
+    const idempotencyKey = `${idToken}_${new Date().valueOf()}`;
+    const sessionId = await generateStripeSessionToken(
+      discountedPrice,
+      planId,
+      idempotencyKey
+    );
     const publishableKey = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
     const stripe = await loadStripe(publishableKey);
     const result = await stripe.redirectToCheckout({

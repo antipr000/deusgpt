@@ -42,4 +42,11 @@ export default class StripeUtils {
     });
     return paymentData;
   }
+
+  async getPaymentStatus(sessionId) {
+    const { invoice, payment_status, status } =
+      await this.stripe.checkout.sessions.retrieve(sessionId);
+
+    console.log("Stripe payment info: ", invoice, payment_status, status);
+  }
 }

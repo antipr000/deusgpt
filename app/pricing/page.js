@@ -10,6 +10,7 @@ const pricingOptions = [
   {
     heading: "Standard",
     description: "Free trial of DeusGPT",
+    planId: "standard",
     discountedPrice: 0,
     originalPrice: 0,
     popular: false,
@@ -18,6 +19,7 @@ const pricingOptions = [
   {
     heading: "Premium",
     description: "Get access to exclusive features.",
+    planId: "premium",
     discountedPrice: 9.99,
     originalPrice: 15,
     popular: true,
@@ -30,6 +32,9 @@ const pricingOptions = [
 ];
 
 const Pricing = () => {
+  const idToken = useAtomValue(idTokenAtom);
+
+  console.log("Received new id token value", idToken);
   return (
     <div className="!inset-0 d-flex flex-col font-montserrat selection:bg-selection bg-background text-foreground">
       <LandingPageNavbar shortIcon={true} />
@@ -48,6 +53,7 @@ const Pricing = () => {
                       {
                         heading,
                         description,
+                        planId,
                         originalPrice,
                         discountedPrice,
                         popular,
@@ -58,6 +64,7 @@ const Pricing = () => {
                       <PriceCard
                         heading={heading}
                         description={description}
+                        planId={planId}
                         originalPrice={originalPrice}
                         discountedPrice={discountedPrice}
                         popular={popular}
