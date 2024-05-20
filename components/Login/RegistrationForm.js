@@ -51,28 +51,6 @@ const RegistrationForm = () => {
             <div className="grid gap-2">
               <div className="grid gap-1">
                 <input
-                  value={registrationData.firstName}
-                  onChange={onChange}
-                  name="firstName"
-                  className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus:border-ring focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 focus-visible:ring-0 focus-visible:border-ring"
-                  id="name"
-                  placeholder="First Name"
-                  required
-                />
-              </div>
-              <div className="grid gap-1">
-                <input
-                  value={registrationData.lastName}
-                  onChange={onChange}
-                  name="lastName"
-                  className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus:border-ring focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 focus-visible:ring-0 focus-visible:border-ring"
-                  id="lastname"
-                  placeholder="Last Name"
-                  required
-                />
-              </div>
-              <div className="grid gap-1">
-                <input
                   value={registrationData.email}
                   onChange={onChange}
                   name="email"

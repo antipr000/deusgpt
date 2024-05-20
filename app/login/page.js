@@ -1,15 +1,30 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import LoginComponent from "../../components/Login";
 import styles from "../../styles/Login.module.css";
 import Footer from "../../components/Footer/footer";
 import { useAtomValue } from "jotai";
 import { idTokenAtom } from "../../store";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const Login = () => {
   const idToken = useAtomValue(idTokenAtom);
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const mode = searchParams.get("mode");
+  const planId = searchParams.get("planId");
 
   console.log("Received new id token value", idToken);
+  useEffect(() => {
+    if (idToken) {
+      if (!mode || !planId) {
+        router.push("/");
+      } else {
+        router.push(`/?mode=${mode}&planId=${planId}`);
+      }
+    }
+  }, [idToken]);
+
   return (
     <div className="login-12 tab-box">
       <div className="container-fluid">

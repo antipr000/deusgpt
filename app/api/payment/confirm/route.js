@@ -16,5 +16,5 @@ export async function GET(request) {
 
   const payment = await stripe.getPaymentStatus(firebaseId, signal);
 
-  return NextResponse(payment);
+  return NextResponse.json(payment);
 }

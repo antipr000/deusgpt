@@ -50,6 +50,7 @@ async function getUser() {
     try {
       const { data } = await instance.get("/user");
       store.set(userAtom, () => data);
+      store.set(loaderAtom, () => ({ show: false, message: null }));
     } catch (err) {
       console.log("Here");
       await firebaseSignOut();

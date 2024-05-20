@@ -1,7 +1,8 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { Fade, Paper, Popper } from "@mui/material";
-import { Edit } from "@mui/icons-material";
+import { Edit, Face } from "@mui/icons-material";
 import EditProfileDialog from "./EditProfileDialog";
+import { firebaseSignOut } from "../../firebase/utils";
 
 const UserAvatar = ({ placement, user, className }) => {
   const [open, setOpen] = useState(false);
@@ -52,6 +53,12 @@ const UserAvatar = ({ placement, user, className }) => {
                 onClick={() => setShowEditProfile(true)}
               >
                 <Edit /> <span>Edit Profile</span>
+              </button>
+              <button
+                className={`flex gap-2 p-2 normal-case ${className}`}
+                onClick={() => firebaseSignOut()}
+              >
+                <Face /> <span>Logout</span>
               </button>
             </Paper>
           </Fade>

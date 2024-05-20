@@ -47,7 +47,7 @@ const PriceCard = ({
   const [_, setLoader] = useAtom(loaderAtom);
   const handleClick = async () => {
     if (!idToken) {
-      router.push(`/login&mode=payment&planId=${planId}`);
+      router.push(`/login?mode=payment&planId=${planId}`);
       return;
     }
     setLoader({

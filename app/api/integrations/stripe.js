@@ -62,7 +62,7 @@ export default class StripeUtils {
 
     console.log("Stripe payment info: ", invoice, payment_status, status);
 
-    if (payment_status === "paid") {
+    if (signal === "success") {
       // For paid, we don't need any other check, update db
       let expiryDate = new Date();
       expiryDate.setMonth(expiryDate.getMonth() + 1);
