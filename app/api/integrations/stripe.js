@@ -1,12 +1,15 @@
 import { Stripe } from "stripe";
+import PaymentRepository from "../db/repositories/Payment.repository";
+import { PaymentStatus } from "../domain/PaymentStatus";
 
 export default class StripeUtils {
   constructor() {
     this.stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
     this.redirectURL = process.env.STRIPE_REDIRECT_URL;
+    this.paymentRepository = new PaymentRepository();
   }
 
-  async createPaymentSession(price, idempotencyKey) {
+  async createPaymentSession(price, idempotencyKey, plan, user) {
     console.log("Stripe session generation", price, idempotencyKey);
     const lineItem = {
       price_data: {
@@ -28,6 +31,15 @@ export default class StripeUtils {
       success_url: this.redirectURL + "?status=success",
       cancel_url: this.redirectURL + "?status=cancel",
     });
-    return session.id;
+
+    const paymentData = await this.paymentRepository.createPayment({
+      firebaseId: user.firebaseId,
+      status: PaymentStatus.PENDING,
+      plan,
+      amount: price,
+      sessionId: session.id,
+      createdAt: new Date(),
+    });
+    return paymentData;
   }
 }

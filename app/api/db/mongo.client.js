@@ -1,11 +1,13 @@
-import mongoose from 'mongoose';
-import { UserModel } from './entities/User';
-
+import mongoose from "mongoose";
+import { UserModel } from "./entities/User";
+import { PaymentModel } from "./entities/Payment";
 
 const DATABASE_URL = process.env.MONGO_URI;
 
 if (!DATABASE_URL) {
-  throw new Error("Please define the DATABASE_URL environment variable inside .env.local");
+  throw new Error(
+    "Please define the DATABASE_URL environment variable inside .env.local"
+  );
 }
 
 let cached = global.mongoose;
@@ -32,13 +34,16 @@ async function connectDB() {
   return cached.conn;
 }
 
-
 class DBProvider {
+  async getUserModel() {
+    await connectDB();
+    return UserModel;
+  }
 
-    async getUserModel() {
-        await connectDB();
-        return UserModel;
-    }
+  async getPaymentModel() {
+    await connectDB();
+    return PaymentModel;
+  }
 }
 
 export default DBProvider;

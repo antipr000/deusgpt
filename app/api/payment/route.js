@@ -3,6 +3,7 @@ import { headers } from "next/headers";
 import StripeUtils from "../integrations/stripe";
 import { getUidFromIdToken } from "../firebase/utils";
 import UserRepository from "../db/repositories/User.repository";
+import PaymentRepository from "../db/repositories/Payment.repository";
 
 export async function POST(request) {
   const headerList = headers();
@@ -14,27 +15,31 @@ export async function POST(request) {
   const body = await request.json();
 
   const stripe = new StripeUtils();
-  const idempotencyKey = `${user._id}_${new Date()
-    .toDateString()
-    .split(" ")
-    .join("_")}`;
 
-  const sessionId = await stripe.createPaymentSession(
-    body["price"],
-    idempotencyKey
+  const price = body["price"];
+  const plan = body["plan"];
+  const idempotencyKey = body["idempotencyKey"];
+
+  const paymentData = await stripe.createPaymentSession(
+    price,
+    idempotencyKey,
+    plan,
+    user
   );
 
-  return Response.json({ sessionId });
+  return Response.json(paymentData);
 }
 
 export async function GET(request) {
   const headerList = headers();
   const idToken = headerList.get("authorization");
-  console.log("idToken", idToken);
 
-  //   const firebaseId = await getUidFromIdToken(idToken);
+  const userRepository = new UserRepository();
+  const paymentRepository = new PaymentRepository();
 
+  const firebaseId = await getUidFromIdToken(idToken);
+  const user = await userRepository.getUserByFirebaseId(firebaseId);
   const sessionId = request.nextUrl.searchParams.get("sessionId");
-
-  return Response.json({});
+  const paymentData = await paymentRepository.getPaymentBySessionId(sessionId);
+  return Response.json(paymentData);
 }
