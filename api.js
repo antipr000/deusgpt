@@ -8,8 +8,9 @@ const instance = axios.create({
 
 instance.interceptors.request.use((config) => {
   const idToken = store.get(idTokenAtom);
+  console.log("ID token", idToken);
   if (idToken) {
-    config.headers.Authorization = `Bearer ${idToken}`;
+    config.headers.Authorization = idToken;
   }
   return config;
 });
@@ -19,14 +20,17 @@ async function createUser(idToken) {
   return data;
 }
 
-async function register(email, password, firstName, lastName) {
+async function register(email, password) {
   const { data } = await instance.post("/register", {
     email,
     password,
-    firstName,
-    lastName,
   });
   return data;
 }
 
-export { createUser, register };
+async function generateStripeSessionToken(price) {
+  const { data } = await instance.post("/payment", { price });
+  return data.sessionId;
+}
+
+export { createUser, register, generateStripeSessionToken };

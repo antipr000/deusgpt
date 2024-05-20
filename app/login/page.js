@@ -1,8 +1,15 @@
+"use client";
 import React from "react";
 import LoginComponent from "../../components/Login";
 import styles from "../../styles/Login.module.css";
+import Footer from "../../components/Footer/footer";
+import { useAtomValue } from "jotai";
+import { idTokenAtom } from "../../store";
 
 const Login = () => {
+  const idToken = useAtomValue(idTokenAtom);
+
+  console.log("Received new id token value", idToken);
   return (
     <div className="login-12 tab-box">
       <div className="container-fluid">
@@ -36,6 +43,9 @@ const Login = () => {
               <LoginComponent />
             </div>
           </div>
+        </div>
+        <div className={`row ${styles.footer_container}`}>
+          <Footer />
         </div>
       </div>
     </div>

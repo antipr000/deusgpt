@@ -3,13 +3,12 @@ import { getApps } from "firebase-admin/app";
 import { Plan } from "../domain/Plan";
 import { serviceAccount } from "../../../deuse-firebase-admin";
 
-const apps = getApps();
 const firebase_admin =
-  apps.length === 0
+  getApps().length === 0
     ? admin.initializeApp({
         credential: admin.credential.cert(serviceAccount),
       })
-    : apps.get[0];
+    : getApps()[0];
 
 async function getUidFromIdToken(idToken) {
   const decodedToken = await firebase_admin.auth().verifyIdToken(idToken);
@@ -32,20 +31,16 @@ async function getUserFederatedData(idToken) {
   };
 }
 
-async function createUserRecord({ email, firstName, lastName, password }) {
-  console.log("Creating user record", email, firstName, lastName, password);
+async function createUserRecord({ email, password }) {
   const { uid } = await firebase_admin.auth().createUser({
     email: email,
     emailVerified: true,
     password: password,
-    displayName: `${firstName} ${lastName}`,
   });
 
   return {
     firebaseId: uid,
     email,
-    firstName,
-    lastName,
     plan: Plan.STANDARD,
     createdAt: new Date(),
   };

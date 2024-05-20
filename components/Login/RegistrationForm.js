@@ -4,8 +4,6 @@ import { registerWithEmail } from "../../firebase/utils";
 
 const RegistrationForm = () => {
   const [registrationData, setRegistrationData] = useState({
-    firstName: "",
-    lastName: "",
     email: "",
     password: "",
     retypedPassword: "",
@@ -27,18 +25,17 @@ const RegistrationForm = () => {
 
   const submit = async (event) => {
     event.preventDefault();
-    const { email, password, firstName, lastName, retypedPassword } =
-      registrationData;
+    const { email, password, retypedPassword } = registrationData;
     // Do validations
     if (!termsAccepted) {
       window.alert("You must accept terms of service!");
     } else if (retypedPassword !== password) {
       window.alert("The passwords do not match!");
-    } else if (!firstName || !lastName || !email || !password) {
+    } else if (!email || !password) {
       window.alert("All fields are mandatory!");
     } else {
       setLoading(true);
-      registerWithEmail(email, password, firstName, lastName);
+      registerWithEmail(email, password);
       setLoading(false);
     }
   };

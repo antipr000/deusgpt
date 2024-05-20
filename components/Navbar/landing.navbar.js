@@ -33,7 +33,7 @@ const NavLink = ({ name, link }) => {
   );
 };
 
-const LandingPageNavbar = () => {
+const LandingPageNavbar = ({ shortIcon }) => {
   const router = useRouter();
   return (
     <header className="px-3 py-4 md:px-6 md:py-7 flex md:grid md:grid-cols-6 h-[72px] md:h-[96px]">
@@ -79,7 +79,7 @@ const LandingPageNavbar = () => {
       <a href="/" className="h-[40px] fixed top-4 left-3 md:top-7 md:left-6">
         <img
           src="logo.png"
-          width="auto"
+          width={shortIcon ? "85px" : "185px"}
           height="auto"
           className={styles.logo}
         />

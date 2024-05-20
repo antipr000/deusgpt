@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@lobehub/ui": "^1.138.25",
+    "@stripe/stripe-js": "^3.4.0",
     "axios": "^1.6.8",
     "bootstrap": "^5.3.3",
     "firebase": "^10.12.0",
@@ -17,7 +18,8 @@
     "mongoose": "^8.4.0",
     "next": "14.2.3",
     "react": "18.3.1",
-    "react-dom": "18.3.1"
+    "react-dom": "18.3.1",
+    "stripe": "^15.7.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.19",

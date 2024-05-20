@@ -1,3 +1,11 @@
 .login_section_container {
-    background: #ccddeb;
+  background: #ccddeb;
+}
+
+.footer_container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  z-index: 9999;
 }

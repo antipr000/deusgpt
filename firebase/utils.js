@@ -5,6 +5,7 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   GithubAuthProvider,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 import { store } from "../store/store";
 import { idTokenAtom, userAtom } from "../store";
@@ -30,8 +31,8 @@ export async function loginWithGithub() {
   store.set(userAtom, () => user);
 }
 
-export async function registerWithEmail(email, password, firstName, lastName) {
-  const user = await register(email, password, firstName, lastName);
+export async function registerWithEmail(email, password) {
+  const user = await register(email, password);
   const auth = getAuth();
   const result = await signInWithEmailAndPassword(auth, email, password);
   const idToken = await result.user.getIdToken(true);
@@ -45,4 +46,9 @@ export async function loginWithEmail(email, password) {
   const idToken = await result.user.getIdToken(true);
   store.set(idTokenAtom, () => idToken);
   store.set(userAtom, () => user);
+}
+
+export async function resetPassword(email) {
+  const auth = getAuth();
+  await sendPasswordResetEmail(auth, email);
 }
