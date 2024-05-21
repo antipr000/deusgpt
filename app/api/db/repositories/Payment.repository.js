@@ -18,6 +18,12 @@ export default class PaymentRepository {
     return data;
   }
 
+  async getPaymentByPaymentId(paymentId) {
+    const paymentModel = await this.dbProvider.getPaymentModel();
+    const data = await paymentModel.findOne({ paymentId });
+    return data;
+  }
+
   async getPaymentBySessionId(sessionId) {
     const paymentModel = await this.dbProvider.getPaymentModel();
     const data = await paymentModel.findOne({ sessionId });

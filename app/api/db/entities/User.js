@@ -31,6 +31,10 @@ const userSchema = new mongoose.Schema({
     default: Plan.STANDARD,
     enum: Object.values(Plan),
   },
+  stripeCustomerId: {
+    type: String,
+    required: false,
+  },
   planExpiry: {
     type: Date,
     required: false,
@@ -43,6 +47,11 @@ const userSchema = new mongoose.Schema({
   createdAt: {
     type: Date,
     required: true,
+  },
+  subscriptionPaymentFailure: {
+    type: Boolean,
+    default: false,
+    required: false,
   },
 });
 

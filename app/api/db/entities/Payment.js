@@ -8,6 +8,10 @@ const paymentSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
+  paymentId: {
+    type: String,
+    required: true,
+  },
   status: {
     type: String,
     required: true,
