@@ -17,10 +17,12 @@ const Home = () => {
   return !!idToken ? (
     <LoggedInHome />
   ) : (
-    <div className="!inset-0 flex flex-col font-montserrat selection:bg-selection bg-background text-foreground">
+    <div className="!inset-0 min-h-[100vh] flex flex-col font-montserrat selection:bg-selection bg-background text-foreground">
       <LandingPageNavbar />
       <Hero />
-      <Footer />
+      <div className="mt-auto">
+        <Footer />
+      </div>
     </div>
   );
 };

@@ -21,6 +21,7 @@ const PriceCard = ({
   const router = useRouter();
   const idToken = useAtomValue(idTokenAtom);
   const [_, setLoader] = useAtom(loaderAtom);
+
   const handleClick = async () => {
     if (!idToken) {
       router.push(`/login?mode=payment&planId=${planId}`);
@@ -58,7 +59,8 @@ const PriceCard = ({
             </div>
 
             <div className={styles.d_grid}>
-              <a
+              <button
+                onClick={handleClick}
                 style={{
                   borderRadius: "20px",
                   textDecoration: "none",
@@ -66,7 +68,7 @@ const PriceCard = ({
                 className="btn btn-primary mt-4"
               >
                 Buy Now
-              </a>
+              </button>
             </div>
           </div>
 
