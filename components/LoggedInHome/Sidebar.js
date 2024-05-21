@@ -6,6 +6,7 @@ import { useSearchParams } from "next/navigation";
 import { useAtom, useAtomValue } from "jotai";
 import { idTokenAtom, loaderAtom } from "../../store";
 import { initiatePayment, pricingOptions } from "../../utils";
+import PremiumBadge from "./PremiumBadge";
 
 const Sidebar = ({ user }) => {
   const searchParams = useSearchParams();
@@ -18,6 +19,10 @@ const Sidebar = ({ user }) => {
     const { discountedPrice } = pricingOptions.find(
       (option) => option.planId === planId
     );
+    if (user.plan === planId) {
+      window.alert("Already subscribed to premium!");
+      return;
+    }
     setLoader({
       show: true,
       message: "Please wait while we process your request",
@@ -36,13 +41,17 @@ const Sidebar = ({ user }) => {
         <img className="w-full h-full object-cover" src={"logo.png"} />
       </Link>
 
-      <Link
-        href="/pricing"
-        className="p-2 w-[full] mx-4 flex justify-center
+      {user.plan === "premium" ? (
+        <PremiumBadge />
+      ) : (
+        <Link
+          href="/pricing"
+          className="p-2 w-[full] mx-4 flex justify-center
       rounded-md bg-black text-white mt-[45px] no-underline hover:no-underline"
-      >
-        Upgrade Plan
-      </Link>
+        >
+          Upgrade Plan
+        </Link>
+      )}
 
       <div
         className="bottom-0 mx-3 md:mx-6 pb-4 w-full flex border-none outline-none

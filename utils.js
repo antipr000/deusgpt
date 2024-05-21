@@ -25,6 +25,7 @@ export const pricingOptions = [
     originalPrice: 0,
     popular: false,
     features: ["ChatGPT 3.5", "15k tokens per day"],
+    btnText: "Start for free",
   },
   {
     heading: "Premium",
@@ -38,5 +39,6 @@ export const pricingOptions = [
       "15k tokens per day",
       "Translate available",
     ],
+    btnText: "Buy Now",
   },
 ];

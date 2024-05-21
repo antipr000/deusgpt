@@ -4,7 +4,7 @@ import { generateStripeSessionToken } from "../../api";
 import { loadStripe } from "@stripe/stripe-js";
 import styles from "./PriceCard.module.css";
 import { useAtom, useAtomValue } from "jotai";
-import { idTokenAtom, loaderAtom } from "../../store";
+import { idTokenAtom, loaderAtom, userAtom } from "../../store";
 import { useRouter } from "next/navigation";
 import { initiatePayment } from "../../utils";
 
@@ -16,13 +16,20 @@ const PriceCard = ({
   originalPrice,
   popular,
   features,
+  btnText,
   index,
 }) => {
   const router = useRouter();
   const idToken = useAtomValue(idTokenAtom);
   const [_, setLoader] = useAtom(loaderAtom);
+  const user = useAtomValue(userAtom);
+  console.log("Received btn text", btnText);
 
   const handleClick = async () => {
+    if (planId === "standard") {
+      router.push(`/login`);
+      return;
+    }
     if (!idToken) {
       router.push(`/login?mode=payment&planId=${planId}`);
       return;
@@ -66,8 +73,11 @@ const PriceCard = ({
                   textDecoration: "none",
                 }}
                 className="btn btn-primary mt-4"
+                disabled={
+                  user && (user.plan === planId || planId === "standard")
+                }
               >
-                Buy Now
+                {user && user.plan === planId ? "Current Plan" : btnText}
               </button>
             </div>
           </div>

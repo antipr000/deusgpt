@@ -32,6 +32,7 @@ const Pricing = () => {
               discountedPrice,
               popular,
               features,
+              btnText,
             },
             index
           ) => (
@@ -43,6 +44,7 @@ const Pricing = () => {
               discountedPrice={discountedPrice}
               popular={popular}
               features={features}
+              btnText={btnText}
               index={index}
               key={index}
             />
