@@ -4,7 +4,7 @@ import { Edit, Face } from "@mui/icons-material";
 import EditProfileDialog from "./EditProfileDialog";
 import { firebaseSignOut } from "../../firebase/utils";
 
-const UserAvatar = ({ placement, user, className }) => {
+const UserAvatar = ({ placement, user, className, onlyIcon = false }) => {
   const [open, setOpen] = useState(false);
   const [showEditProfile, setShowEditProfile] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -71,9 +71,11 @@ const UserAvatar = ({ placement, user, className }) => {
         >
           {getAvatarName()[0]}
         </div>
-        <div className="text-ellipsis whitespace-nowrap overflow-hidden text-black">
-          {getAvatarName()}
-        </div>
+        {!onlyIcon && (
+          <div className="text-ellipsis whitespace-nowrap overflow-hidden text-black">
+            {getAvatarName()}
+          </div>
+        )}
       </button>
     </Fragment>
   );
