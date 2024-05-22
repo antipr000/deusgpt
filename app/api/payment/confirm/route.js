@@ -7,6 +7,7 @@ import UserRepository from "../../db/repositories/User.repository";
 export async function GET(request) {
   const idToken = getIDTokenFromRequest(request);
   const signal = request.nextUrl.searchParams.get("signal");
+  const paymentId = request.nextUrl.searchParams.get("paymentId");
 
   const userRepository = new UserRepository();
   const stripe = new StripeUtils();
@@ -14,7 +15,7 @@ export async function GET(request) {
   const firebaseId = await getUidFromIdToken(idToken);
   await userRepository.getUserByFirebaseId(firebaseId);
 
-  const payment = await stripe.getPaymentStatus(firebaseId, signal);
+  const payment = await stripe.getPaymentStatus(firebaseId, signal, paymentId);
 
   return NextResponse.json(payment);
 }

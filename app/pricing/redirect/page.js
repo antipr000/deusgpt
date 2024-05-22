@@ -14,10 +14,11 @@ const PaymentRedirection = () => {
   const [paymentStatus, setPaymentStatus] = useState("pending");
   const searchParams = useSearchParams();
   const signal = searchParams.get("status");
+  const paymentId = searchParams.get("pid");
   useEffect(() => {
     let handler;
     async function fetchPaymentInfo() {
-      const payment = await getPaymentStatus(signal);
+      const payment = await getPaymentStatus(signal, paymentId);
       if (payment.status === "success") {
         setPaymentStatus("success");
         clearInterval(handler);

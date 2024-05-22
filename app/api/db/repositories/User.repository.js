@@ -23,6 +23,12 @@ class UserRepository {
     return data;
   }
 
+  async getUserByStripeCustomerId(stripeCustomerId) {
+    const userModel = await this.dbProvider.getUserModel();
+    const data = await userModel.findOne({ stripeCustomerId });
+    return data;
+  }
+
   async getUserByEmail(email) {
     const userModel = await this.dbProvider.getUserModel();
     const data = userModel.findOne({ email: email });
