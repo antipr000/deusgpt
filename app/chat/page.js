@@ -16,6 +16,28 @@ const ChatPage = () => {
   const router = useRouter();
   const agent = searchParams.get("agent");
 
+  const handleEvent = ({ data }) => {
+    const { type, payload } = data;
+    if (type === "chat-load") {
+      if (payload) {
+        iframeRef.current.contentWindow.postMessage(
+          {
+            type: "id-token",
+            payload: {
+              idToken,
+              user,
+            },
+          },
+          "*"
+        );
+      }
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("message", handleEvent);
+  }, []);
+
   useEffect(() => {
     if (!idToken) {
       router.push("/");
