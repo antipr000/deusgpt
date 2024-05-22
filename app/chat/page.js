@@ -4,24 +4,31 @@ import React, { useEffect, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useAtom, useAtomValue } from "jotai";
 import { getUser } from "../../api";
-import { loaderAtom, userAtom } from "../../store";
+import { idTokenAtom, loaderAtom, userAtom } from "../../store";
 import Sidebar from "../../components/Chat/Sidebar";
 
 const ChatPage = () => {
   const iframeRef = useRef(null);
   const user = useAtomValue(userAtom);
+  const idToken = useAtomValue(idTokenAtom);
   const [_, setLoader] = useAtom(loaderAtom);
   const searchParams = useSearchParams();
   const router = useRouter();
   const agent = searchParams.get("agent");
 
   useEffect(() => {
-    if (!user) {
+    if (!idToken) {
+      router.push("/");
+    } else if (!user) {
       setLoader({
         show: true,
         message: "Please wait while we load your data.",
       });
-      getUser();
+      getUser().then((userData) => {
+        if (!userData) {
+          router.push("/");
+        }
+      });
     }
   }, [user]);
 

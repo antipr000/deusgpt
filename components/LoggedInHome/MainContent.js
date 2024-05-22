@@ -9,18 +9,21 @@ const recentSubmits = [
   {
     avatar: "🍌",
     title: "GPT",
-    description: "Agent to answer AWS questions",
+    description: "Ask any question to ChatGPT",
+    link: "/chat?agent=gpt",
   },
   {
     avatar: "🐧",
     title: "Translate",
-    description: "Your Linux expert friend",
+    description: "Translate to your language",
+    link: "/chat?agent=translate",
   },
   {
     avatar: "📷",
     title: "Search",
     description:
       "Specializes in detailed analysis of photographic works, including themes, composition, technical quality, use of light, creativity, and originality.",
+    link: "/chat?agent=search",
   },
 ];
 

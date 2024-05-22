@@ -53,10 +53,12 @@ async function getUser() {
       const { data } = await instance.get("/user");
       store.set(userAtom, () => data);
       store.set(loaderAtom, () => ({ show: false, message: null }));
+      return data;
     } catch (err) {
       console.log("Here");
       await firebaseSignOut();
       store.set(loaderAtom, () => ({ show: false, message: null }));
+      return null;
     }
   }
 }
