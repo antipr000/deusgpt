@@ -31,12 +31,11 @@ export async function POST(request) {
 
 export async function GET(request) {
   const idToken = getIDTokenFromRequest(request);
-  const sessionId = request.nextUrl.searchParams.get("sessionId");
   const userRepository = new UserRepository();
   const paymentRepository = new PaymentRepository();
 
   const firebaseId = await getUidFromIdToken(idToken);
   const user = await userRepository.getUserByFirebaseId(firebaseId);
-  const paymentData = await paymentRepository.getPaymentBySessionId(sessionId);
+  const paymentData = await paymentRepository.getAllPaymentsForUser(firebaseId);
   return NextResponse.json(paymentData);
 }

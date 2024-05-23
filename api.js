@@ -38,6 +38,11 @@ async function generateStripeSessionToken(price, plan, idempotencyKey) {
   return data.sessionId;
 }
 
+async function getAllPaymentsForUser() {
+  const { data } = await instance.get("/payment");
+  return data;
+}
+
 async function getPaymentStatus(signal, paymentId) {
   const { data } = await instance.get(
     `/payment/confirm?signal=${signal}&paymentId=${paymentId}`
@@ -75,4 +80,5 @@ export {
   getPaymentStatus,
   getUser,
   updateUser,
+  getAllPaymentsForUser,
 };

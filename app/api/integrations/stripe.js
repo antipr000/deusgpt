@@ -3,6 +3,7 @@ import PaymentRepository from "../db/repositories/Payment.repository";
 import { PaymentStatus } from "../domain/PaymentStatus";
 import UserRepository from "../db/repositories/User.repository";
 import { Plan } from "../domain/Plan";
+import { v4 } from "uuid";
 
 export default class StripeUtils {
   constructor() {
@@ -42,6 +43,7 @@ export default class StripeUtils {
           description: "Premium plan for DeusGPT",
         },
       },
+      quantity: 1,
     };
 
     const session = await this.stripe.checkout.sessions.create({
@@ -107,8 +109,8 @@ export default class StripeUtils {
     expiryDate.setHours(0, 0, 0, 0);
 
     if (pendingPayment) {
-      await paymentRepository.updatePayment(payment._id, {
-        invoiceId: body["invoice"],
+      await paymentRepository.updatePayment(pendingPayment._id, {
+        invoiceId: body["invoice_pdf"],
         completedAt: new Date(),
         status: paymentStatus,
       });
@@ -117,10 +119,11 @@ export default class StripeUtils {
       await paymentRepository.createPayment({
         firebaseId: user.firebaseId,
         status: paymentStatus,
+        paymentId: v4(),
         plan: Plan.PREMIUM,
-        amount: body["amount_total"],
+        amount: body["amount_paid"],
         sessionId: body["id"],
-        invoiceId: body["invoice"],
+        invoiceId: body["invoice_pdf"],
         createdAt: new Date(),
         completedAt: new Date(),
       });

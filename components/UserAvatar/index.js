@@ -1,12 +1,14 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { Fade, Paper, Popper } from "@mui/material";
-import { Edit, Face } from "@mui/icons-material";
+import { Edit, Face, Payments } from "@mui/icons-material";
 import EditProfileDialog from "./EditProfileDialog";
 import { firebaseSignOut } from "../../firebase/utils";
+import PaymentsHistoryDialog from "./PaymentsHistoryDialog";
 
 const UserAvatar = ({ placement, user, className, onlyIcon = false }) => {
   const [open, setOpen] = useState(false);
   const [showEditProfile, setShowEditProfile] = useState(false);
+  const [showPayments, setShowPayments] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
@@ -44,10 +46,24 @@ const UserAvatar = ({ placement, user, className, onlyIcon = false }) => {
           user={user}
         />
       )}
+      {showPayments && (
+        <PaymentsHistoryDialog
+          open={showPayments}
+          setOpen={setShowPayments}
+          user={user}
+        />
+      )}
       <Popper open={open} anchorEl={anchorEl} placement={placement} transition>
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={350}>
             <Paper>
+              <button
+                className={`flex gap-2 p-2 normal-case ${className}`}
+                onClick={() => setShowPayments(true)}
+              >
+                <Payments /> <span>Payments</span>
+              </button>
+
               <button
                 className={`flex gap-2 p-2 normal-case ${className}`}
                 onClick={() => setShowEditProfile(true)}

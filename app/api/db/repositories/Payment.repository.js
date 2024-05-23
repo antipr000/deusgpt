@@ -35,9 +35,24 @@ export default class PaymentRepository {
     const data = await paymentModel
       .findOne({
         firebaseId,
-        status: PaymentStatus.PENDING,
+        status: { $in: [PaymentStatus.PENDING, PaymentStatus.FAILURE] },
       })
       .sort({ createdAt: -1 }); // Sort payments by createdAt in descending order
+    return data;
+  }
+
+  async getAllPaymentsForUser(firebaseId) {
+    const paymentModel = await this.dbProvider.getPaymentModel();
+    const data = await paymentModel.find({
+      firebaseId,
+      status: {
+        $in: [
+          PaymentStatus.PENDING,
+          PaymentStatus.FAILURE,
+          PaymentStatus.SUCCESS,
+        ],
+      },
+    });
     return data;
   }
 
