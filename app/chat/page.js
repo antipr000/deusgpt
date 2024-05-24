@@ -1,10 +1,36 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useAtom, useAtomValue } from "jotai";
 import { getUser } from "../../api";
 import { idTokenAtom, loaderAtom, userAtom } from "../../store";
+import { store } from "../../store/store";
+
+const handleEvent = ({ data }) => {
+  const { type, payload } = data;
+  const idToken = store.get(idTokenAtom);
+  const user = store.get(userAtom);
+  const iframeRef = document.getElementById("lobechat");
+  if (type === "chat-load") {
+    store.set(loaderAtom, (_) => ({
+      show: false,
+      message: null,
+    }));
+    if (payload) {
+      iframeRef.contentWindow.postMessage(
+        {
+          type: "id-token",
+          payload: {
+            idToken,
+            user,
+          },
+        },
+        "*"
+      );
+    }
+  }
+};
 
 const ChatPage = () => {
   const iframeRef = useRef(null);
@@ -14,25 +40,6 @@ const ChatPage = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const agent = searchParams.get("agent");
-
-  const handleEvent = ({ data }) => {
-    const { type, payload } = data;
-    if (type === "chat-load") {
-      if (payload) {
-        iframeRef.current.contentWindow.postMessage(
-          {
-            type: "id-token",
-            payload: {
-              idToken,
-              user,
-              agent,
-            },
-          },
-          "*"
-        );
-      }
-    }
-  };
 
   useEffect(() => {
     window.addEventListener("message", handleEvent);
@@ -50,6 +57,11 @@ const ChatPage = () => {
         if (!userData) {
           router.push("/");
         }
+      });
+    } else {
+      setLoader({
+        show: true,
+        message: "Please wait while we load your data.",
       });
     }
   }, [idToken, user]);
@@ -71,6 +83,7 @@ const ChatPage = () => {
   return (
     <div className="h-full w-full flex">
       <iframe
+        id="lobechat"
         ref={iframeRef}
         src={`http://localhost:3010?agent=${agent}`}
         className="h-full w-full"
