@@ -25,6 +25,7 @@ const ChatPage = () => {
             payload: {
               idToken,
               user,
+              agent,
             },
           },
           "*"
@@ -51,7 +52,7 @@ const ChatPage = () => {
         }
       });
     }
-  }, [user]);
+  }, [idToken, user]);
 
   useEffect(() => {
     if (!agent) {
@@ -61,6 +62,8 @@ const ChatPage = () => {
     }
   }, [agent]);
 
+  console.log("User is", user);
+
   if (!user || !agent) {
     return <></>;
   }
@@ -69,7 +72,7 @@ const ChatPage = () => {
     <div className="h-full w-full flex">
       <iframe
         ref={iframeRef}
-        src={`http://localhost:3010/chat?agent=${agent}`}
+        src={`http://localhost:3010?agent=${agent}`}
         className="h-full w-full"
       />
     </div>
