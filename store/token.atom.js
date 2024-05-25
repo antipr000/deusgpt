@@ -1,3 +1,7 @@
-import { atomWithStorage } from "jotai/utils";
+import { atomWithStorage, createJSONStorage } from "jotai/utils";
+import { getDefaultStore } from "jotai/vanilla";
 
-export const idTokenAtom = atomWithStorage(null);
+const storage = createJSONStorage();
+export const idTokenAtom = atomWithStorage("idToken", null, storage, {
+  getOnInit: true,
+});

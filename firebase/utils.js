@@ -1,4 +1,4 @@
-import { createUser, register } from "../api";
+import { createUser, getUser, register } from "../api";
 import {
   signInWithEmailAndPassword,
   getAuth,
@@ -52,6 +52,7 @@ export async function loginWithEmail(email, password) {
   const auth = getAuth();
   const result = await signInWithEmailAndPassword(auth, email, password);
   const idToken = await result.user.getIdToken(true);
+  const user = await getUser();
   store.set(loaderAtom, () => ({ show: false, message: null }));
   store.set(idTokenAtom, () => idToken);
   store.set(userAtom, () => user);
