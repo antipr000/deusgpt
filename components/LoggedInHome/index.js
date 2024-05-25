@@ -11,6 +11,8 @@ const LoggedInHome = () => {
   const user = useAtomValue(userAtom);
   const [_, setLoader] = useAtom(loaderAtom);
 
+  console.log("INSIDE LOGGED IN HOME");
+
   useEffect(() => {
     if (!user) {
       setLoader({
