@@ -6,29 +6,36 @@ import { useAtom, useAtomValue } from "jotai";
 import { getUser } from "../../api";
 import { idTokenAtom, loaderAtom, userAtom } from "../../store";
 import { store } from "../../store/store";
+import { firebaseSignOut } from "../../firebase/utils";
 
 const handleEvent = ({ data }) => {
   const { type, payload } = data;
   const idToken = store.get(idTokenAtom);
   const user = store.get(userAtom);
   const iframeRef = document.getElementById("lobechat");
-  if (type === "chat-load") {
-    store.set(loaderAtom, (_) => ({
-      show: false,
-      message: null,
-    }));
-    if (payload) {
-      iframeRef.contentWindow.postMessage(
-        {
-          type: "id-token",
-          payload: {
-            idToken,
-            user,
+  switch (type) {
+    case "chat-load":
+      store.set(loaderAtom, (_) => ({
+        show: false,
+        message: null,
+      }));
+      if (payload) {
+        iframeRef.contentWindow.postMessage(
+          {
+            type: "id-token",
+            payload: {
+              idToken,
+              user,
+            },
           },
-        },
-        "*"
-      );
-    }
+          "*"
+        );
+      }
+      break;
+    case "signout":
+      if (payload) {
+        firebaseSignOut();
+      }
   }
 };
 
@@ -86,6 +93,7 @@ const ChatPage = () => {
         id="lobechat"
         ref={iframeRef}
         src={`http://localhost:3010?agent=${agent}`}
+        allow="microphone"
         className="h-full w-full"
       />
     </div>
