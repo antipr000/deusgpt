@@ -54,6 +54,7 @@ const ChatPage = () => {
 
   useEffect(() => {
     if (!idToken) {
+      console.log("id token is null");
       router.push("/");
     } else if (!user) {
       setLoader({
@@ -75,6 +76,7 @@ const ChatPage = () => {
 
   useEffect(() => {
     if (!agent) {
+      console.log("agent is null");
       router.push(`/chat?agent=gpt`);
     } else {
       router.push(`/chat?agent=${agent}`);

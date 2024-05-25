@@ -14,6 +14,8 @@ const AdminPage = () => {
   const router = useRouter();
 
   useEffect(() => {
+    console.log("IDTOKEN", idToken);
+    console.log("USER", user);
     if (!idToken) {
       router.push("/");
     } else if (!user) {

@@ -1,9 +1,10 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { Fade, Paper, Popper } from "@mui/material";
-import { Edit, Face, Payments } from "@mui/icons-material";
+import { AdminPanelSettings, Edit, Face, Payments } from "@mui/icons-material";
 import EditProfileDialog from "./EditProfileDialog";
 import { firebaseSignOut } from "../../firebase/utils";
 import PaymentsHistoryDialog from "./PaymentsHistoryDialog";
+import { useRouter } from "next/navigation";
 
 const UserAvatar = ({ placement, user, className, onlyIcon = false }) => {
   const [open, setOpen] = useState(false);
@@ -11,6 +12,7 @@ const UserAvatar = ({ placement, user, className, onlyIcon = false }) => {
   const [showPayments, setShowPayments] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
 
+  const router = useRouter();
   const handleClick = (event) => {
     event.stopPropagation();
     setAnchorEl(event.currentTarget);
@@ -57,6 +59,15 @@ const UserAvatar = ({ placement, user, className, onlyIcon = false }) => {
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={350}>
             <Paper>
+              {user.isAdmin && (
+                <button
+                  className={`flex gap-2 p-2 normal-case ${className}`}
+                  onClick={() => router.push("/admin")}
+                >
+                  <AdminPanelSettings /> <span>Admin Panel</span>
+                </button>
+              )}
+
               <button
                 className={`flex gap-2 p-2 normal-case ${className}`}
                 onClick={() => setShowPayments(true)}
