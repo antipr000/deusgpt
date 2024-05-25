@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import { UserModel } from "./entities/User";
 import { PaymentModel } from "./entities/Payment";
 import { IntegrationModel } from "./entities/Integration";
+import { OtpModel } from "./entities/Otp";
 
 const DATABASE_URL = process.env.MONGO_URI;
 
@@ -49,6 +50,11 @@ class DBProvider {
   async getIntegrationModel() {
     await connectDB();
     return IntegrationModel;
+  }
+
+  async getOtpModel() {
+    await connectDB();
+    return OtpModel;
   }
 }
 

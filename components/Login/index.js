@@ -13,7 +13,7 @@ const Form = ({ tab, setTab }) => {
     case "register":
       return <RegistrationForm />;
     case "forgot_password":
-      return <ForgotPasswordForm />;
+      return <ForgotPasswordForm setTab={setTab} />;
   }
 };
 

@@ -73,6 +73,32 @@ async function updateUser(body) {
   return data;
 }
 
+async function forgotPassword(email) {
+  const { data } = await instance.post("/auth/password/forgot", {
+    email,
+  });
+
+  return data.success;
+}
+
+async function verifyOtp(email, otp) {
+  const { data } = await instance.post("/auth/password/verify", {
+    email,
+    otp,
+  });
+
+  return data;
+}
+
+async function resetPassword(email, password) {
+  const { data } = await instance.post("/auth/password/reset", {
+    email,
+    password,
+  });
+
+  return data.success;
+}
+
 export {
   createUser,
   register,
@@ -81,4 +107,7 @@ export {
   getUser,
   updateUser,
   getAllPaymentsForUser,
+  forgotPassword,
+  verifyOtp,
+  resetPassword,
 };

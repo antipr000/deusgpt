@@ -46,9 +46,24 @@ async function createUserRecord({ email, password }) {
   };
 }
 
+async function resetUserPassword(email, password) {
+  try {
+    const user = await firebase_admin.auth().getUserByEmail(email.trim());
+    const uid = user.uid;
+    await firebase_admin.auth().updateUser(uid, {
+      password,
+    });
+    return true;
+  } catch (e) {
+    console.log("Failed to set password for user", e);
+    return false;
+  }
+}
+
 export {
   firebase_admin,
   getUidFromIdToken,
   getUserFederatedData,
   createUserRecord,
+  resetUserPassword,
 };

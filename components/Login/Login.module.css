@@ -1,22 +1,27 @@
 .login_form_container {
-    top: 30px;
-    position: relative;
+  top: 30px;
+  position: relative;
 }
 
 .register_tab {
-    right: 0;
-    position: relative;
-    float: right;
+  right: 0;
+  position: relative;
+  float: right;
 }
 
 .forgot_password_btn {
-    right: 0;
-    position: relative;
-    float: right;
-    top: 0;
-    color: var(--foreground);
+  right: 0;
+  position: relative;
+  float: right;
+  top: 0;
+  color: var(--foreground);
 }
 
 .federated_login_img {
-    color:transparent
+  color: transparent;
+}
+
+.forgot_password_desc {
+  color: #949090;
+  font-size: 12px;
 }
