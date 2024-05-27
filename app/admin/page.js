@@ -19,6 +19,10 @@ const handleEvent = ({ data }) => {
         show: false,
         message: null,
       }));
+      store.set(loaderAtom, (_) => ({
+        show: false,
+        message: null,
+      }));
       if (payload) {
         iframeRef.contentWindow.postMessage(
           {
@@ -71,8 +75,8 @@ const AdminPage = () => {
       });
     } else {
       setLoader({
-        show: false,
-        message: null,
+        show: true,
+        message: "Please wait while we load your data.",
       });
     }
   }, [idToken, user]);
