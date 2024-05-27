@@ -94,7 +94,7 @@ const ChatPage = () => {
       <iframe
         id="lobechat"
         ref={iframeRef}
-        src={`http://localhost:3010?agent=${agent}`}
+        src={`${process.env.NEXT_PUBLIC_LOBECHAT_URL}?agent=${agent}`}
         allow="microphone"
         className="h-full w-full"
       />

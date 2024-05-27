@@ -90,7 +90,7 @@ const AdminPage = () => {
       <iframe
         id="lobechat"
         ref={iframeRef}
-        src={`http://localhost:3010/admin`}
+        src={`${process.env.NEXT_PUBLIC_LOBECHAT_URL}/admin`}
         allow="microphone"
         className="h-full w-full"
       />

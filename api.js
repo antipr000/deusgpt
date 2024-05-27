@@ -4,7 +4,7 @@ import { idTokenAtom, loaderAtom, userAtom } from "./store";
 import { firebaseSignOut } from "./firebase/utils";
 
 const instance = axios.create({
-  baseURL: "http://localhost:3000/api",
+  baseURL: `${process.env.NEXT_PUBLIC_SERVER_URL}/api`,
 });
 
 instance.interceptors.request.use((config) => {

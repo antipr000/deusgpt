@@ -86,7 +86,7 @@ const TranslatePage = () => {
       <iframe
         id="lobechat"
         ref={iframeRef}
-        src={`http://localhost:3010/translate`}
+        src={`${process.env.NEXT_PUBLIC_LOBECHAT_URL}/translate`}
         allow="microphone"
         className="h-full w-full"
       />
