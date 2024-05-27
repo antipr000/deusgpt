@@ -6,6 +6,7 @@ import MainContent from "./MainContent";
 import { useAtom, useAtomValue } from "jotai";
 import { loaderAtom, userAtom } from "../../store";
 import { getUser } from "../../api";
+import Navbar from "./Navbar";
 
 const LoggedInHome = () => {
   const user = useAtomValue(userAtom);
@@ -28,9 +29,17 @@ const LoggedInHome = () => {
   }
 
   return (
-    <div className="flex h-full">
+    <div
+      className="flex h-full flex"
+      style={{
+        backgroundColor: "#F8F8F8",
+      }}
+    >
       <Sidebar user={user} />
-      <MainContent />
+      <div className="flex w-full flex-col">
+        <Navbar />
+        <MainContent />
+      </div>
     </div>
   );
 };

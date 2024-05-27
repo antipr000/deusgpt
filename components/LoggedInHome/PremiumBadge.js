@@ -12,6 +12,8 @@ const PremiumBadge = () => {
         alignItems: "center",
         marginLeft: "2px",
         marginRight: "2px",
+        width: "80%",
+        alignSelf: "center",
       }}
     >
       <Diamond fontSize="small" htmlColor="white" />

@@ -7,7 +7,7 @@ const AgentCard = ({ avatar, title, description, link, disabled }) => {
   const router = useRouter();
   return (
     <div
-      className="h-[300px] cursor-pointer overflow-hidden bg-white shadow-md rounded-lg"
+      className="h-[300px] w-[400px] cursor-pointer overflow-hidden bg-white shadow-md rounded-lg"
       onClick={() => {
         if (!disabled) {
           router.push(link);
@@ -17,6 +17,7 @@ const AgentCard = ({ avatar, title, description, link, disabled }) => {
       <div
         className="overflow-hidden h-[64px] flex justify-center items-center 
       relative bg-[rgba(0,0,0,0.06)]"
+        style={{}}
       >
         <Avatar
           alt={"banner"}

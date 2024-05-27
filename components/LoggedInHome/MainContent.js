@@ -50,10 +50,22 @@ const MainContent = () => {
   return (
     <div className="p-[16px] flex-1">
       <div className="flex flex-col items-center">
-        <h1 className="mt-[24px] text-[56px] font-[500]">
+        <h1
+          className="mt-[24px] text-[56px] font-[800]"
+          style={{
+            zIndex: 2,
+          }}
+        >
           Find & Use The Best Agents
         </h1>
-        <GridBackground className="mt-[-5px]" animation random />
+        <GridBackground
+          animation
+          style={{
+            width: "80%",
+            margin: "-60px 0 -20px",
+          }}
+          random
+        />
       </div>
 
       <div className="my-[15px]">
@@ -61,7 +73,7 @@ const MainContent = () => {
       </div>
       <h2 className="mt-[40px] text-[24px]">Recent Submits</h2>
       <div className="mt-[25px]">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
           {filteredCards.map((item, index) => (
             <AgentCard key={index} {...item} />
           ))}
