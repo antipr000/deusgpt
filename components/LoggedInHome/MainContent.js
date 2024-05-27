@@ -16,7 +16,7 @@ const recentSubmits = [
     avatar: "🐧",
     title: "Translate",
     description: "Translate to your language",
-    link: "/chat?agent=translate",
+    link: "/translate",
   },
   {
     avatar: "📷",
@@ -24,6 +24,7 @@ const recentSubmits = [
     description:
       "Specializes in detailed analysis of photographic works, including themes, composition, technical quality, use of light, creativity, and originality.",
     link: "/chat?agent=search",
+    disabled: true,
   },
 ];
 

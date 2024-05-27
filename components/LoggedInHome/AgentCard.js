@@ -3,13 +3,15 @@ import React from "react";
 import { Avatar } from "@lobehub/ui";
 import { useRouter } from "next/navigation";
 
-const AgentCard = ({ avatar, title, description, link }) => {
+const AgentCard = ({ avatar, title, description, link, disabled }) => {
   const router = useRouter();
   return (
     <div
       className="h-[300px] cursor-pointer overflow-hidden bg-white shadow-md rounded-lg"
       onClick={() => {
-        router.push(link);
+        if (!disabled) {
+          router.push(link);
+        }
       }}
     >
       <div
