@@ -30,13 +30,13 @@ const LoggedInHome = () => {
 
   return (
     <div
-      className="flex h-full flex"
+      className="flex h-full"
       style={{
         backgroundColor: "#F8F8F8",
       }}
     >
       <Sidebar user={user} />
-      <div className="flex w-full flex-col">
+      <div className="flex w-full flex-col h-full overflow-auto">
         <Navbar />
         <MainContent />
       </div>

@@ -7,7 +7,8 @@ const AgentCard = ({ avatar, title, description, link, disabled }) => {
   const router = useRouter();
   return (
     <div
-      className="h-[300px] w-[400px] cursor-pointer overflow-hidden bg-white shadow-md rounded-lg"
+      style={{ width: "min(100%, 400px)" }}
+      className="h-[300px] cursor-pointer overflow-hidden bg-white shadow-md rounded-lg"
       onClick={() => {
         if (!disabled) {
           router.push(link);

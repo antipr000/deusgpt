@@ -11,7 +11,7 @@ import PremiumBadge from "./PremiumBadge";
 const Brand = () => {
   return (
     <div
-      className="flex flex-row gap-4 align-center w-[55] h-[55] justify-center"
+      className="flex flex-row gap-4 items-center w-[55] h-[75px] justify-center"
       style={{
         borderBlockEnd: "1px solid #d9d9d9",
       }}
@@ -67,7 +67,7 @@ const Sidebar = ({ user }) => {
 
   return (
     <div
-      className="flex flex-col h-full w-[250px] pt-4 gap-20"
+      className="flex flex-col h-full w-[250px] gap-20"
       style={{
         backgroundColor: "#fff",
       }}
