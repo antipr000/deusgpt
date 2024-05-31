@@ -70,6 +70,7 @@ async function getUser() {
 
 async function updateUser(body) {
   const { data } = await instance.patch("/user", body);
+  store.set(userAtom, () => data);
   return data;
 }
 
