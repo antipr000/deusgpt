@@ -1,17 +1,25 @@
 "use client";
 
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useAtom, useAtomValue } from "jotai";
-import { getUser } from "../../api";
-import { idTokenAtom, loaderAtom, userAtom } from "../../store";
+import { getAllChatSessions, getAllIntegrations, getUser } from "../../api";
+import {
+  idTokenAtom,
+  integrationsAtom,
+  loaderAtom,
+  userAtom,
+} from "../../store";
 import { store } from "../../store/store";
 import { firebaseSignOut } from "../../firebase/utils";
+import { chatSessionsAtom } from "../../store/chatSessions.atom";
 
 const handleEvent = ({ data }) => {
   const { type, payload } = data;
   const idToken = store.get(idTokenAtom);
   const user = store.get(userAtom);
+  const integrations = store.get(integrationsAtom);
+  const chatSessions = store.get(chatSessionsAtom);
   const iframeRef = document.getElementById("lobechat");
   switch (type) {
     case "chat-load":
@@ -26,6 +34,8 @@ const handleEvent = ({ data }) => {
             payload: {
               idToken,
               user,
+              integrations,
+              chatSessions,
             },
           },
           "*"
@@ -43,10 +53,23 @@ const ChatPage = () => {
   const iframeRef = useRef(null);
   const user = useAtomValue(userAtom);
   const idToken = useAtomValue(idTokenAtom);
-  const [_, setLoader] = useAtom(loaderAtom);
+  const [_1, setLoader] = useAtom(loaderAtom);
+  const [_2, setIntegrations] = useAtom(integrationsAtom);
+  const [_3, setChatSessions] = useAtom(chatSessionsAtom);
   const searchParams = useSearchParams();
+  const [isDataFetched, setIsDataFetched] = useState(false);
   const router = useRouter();
   const agent = searchParams.get("agent");
+
+  const loadAllData = async (user) => {
+    const promiseArr = [getAllIntegrations(), getAllChatSessions(user)];
+
+    const [integrations, chatSessions] = await Promise.all(promiseArr);
+
+    setIntegrations(integrations);
+    setChatSessions(chatSessions);
+    setIsDataFetched(true);
+  };
 
   useEffect(() => {
     window.addEventListener("message", handleEvent);
@@ -71,21 +94,13 @@ const ChatPage = () => {
         show: true,
         message: "Please wait while we load your data.",
       });
+      loadAllData(user);
     }
   }, [idToken, user]);
 
-  useEffect(() => {
-    if (!agent) {
-      console.log("agent is null");
-      router.push(`/chat?agent=gpt`);
-    } else {
-      router.push(`/chat?agent=${agent}`);
-    }
-  }, [agent]);
-
   console.log("User is", user);
 
-  if (!user || !agent) {
+  if (!isDataFetched) {
     return <></>;
   }
 

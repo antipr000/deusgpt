@@ -1,4 +1,5 @@
 import axios from "axios";
+import { v4 } from "uuid";
 import { store } from "./store/store";
 import { idTokenAtom, loaderAtom, userAtom } from "./store";
 import { firebaseSignOut } from "./firebase/utils";
@@ -100,6 +101,31 @@ async function resetPassword(email, password) {
   return data.success;
 }
 
+async function getAllIntegrations() {
+  const { data } = await instance.get("/integrations");
+  return data;
+}
+
+const getAllChatSessions = async (user) => {
+  const { data } = await instance.get("/chat-session");
+  if (!data?.length) {
+    const newSession = await createChatSession({
+      agent: "gpt",
+      createdAt: new Date(),
+      firebaseId: user.firebaseId,
+      name: "DeusGPT",
+      sessionId: v4(),
+    });
+    return [newSession];
+  }
+  return data;
+};
+
+const createChatSession = async (request) => {
+  const { data } = await instance.post("/chat-session", request);
+  return data;
+};
+
 export {
   createUser,
   register,
@@ -111,4 +137,7 @@ export {
   forgotPassword,
   verifyOtp,
   resetPassword,
+  getAllIntegrations,
+  getAllChatSessions,
+  createChatSession,
 };

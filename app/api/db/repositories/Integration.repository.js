@@ -16,6 +16,18 @@ class IntegrationRepository {
     const data = await integrationModel.findOne({ name });
     return data;
   }
+
+  async getAllIntegrations() {
+    const integrationModel = await this.dbProvider.getIntegrationModel();
+    const data = await integrationModel.find({ enabled: true });
+    const finalData = data.map(({ displayName, enabled, name, models }) => ({
+      displayName,
+      enabled,
+      name,
+      models,
+    }));
+    return finalData;
+  }
 }
 
 export default IntegrationRepository;
