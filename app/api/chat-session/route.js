@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import ChatRepository from "../db/repositories/chat.repository";
+import ChatRepository from "../db/repositories/ChatSession.repository";
 import { getUserFederatedData } from "../firebase/utils";
 import { getIDTokenFromRequest } from "../utils";
 
